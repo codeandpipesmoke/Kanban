@@ -13,17 +13,19 @@ use Cake\Http\Exception\NotFoundException;
  * Task Entity
  *
  * @property int $id
- * @property string $position_id
- * @property string $title
+ * @property int $status_id
+ * @property string $text
  * @property string|null $description
  * @property bool $priority
  * @property bool $deleted
  * @property bool $visible
  * @property int $pos
+ * @property int|null $tag_count
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
- * @property \App\Model\Entity\Position $position
+ * @property \App\Model\Entity\Status $status
+ * @property \App\Model\Entity\Tag[] $tags
  */
 class Task extends Entity
 {
@@ -37,15 +39,17 @@ class Task extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'position_id' => true,
-        'title' => true,
+        'status_id' => true,
+        'text' => true,
         'description' => true,
         'priority' => true,
         'deleted' => true,
         'visible' => true,
         'pos' => true,
+        'tag_count' => true,
         'created' => true,
         'modified' => true,
-        'position' => true,
+        'status' => true,
+        'tags' => true,
     ];
 }

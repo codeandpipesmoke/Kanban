@@ -29,7 +29,8 @@ class TasksTableTest extends TestCase
      */
     protected array $fixtures = [
         'app.Tasks',
-        'app.Positions',
+        'app.Statuses',
+        'app.Tags',
     ];
 
     /**

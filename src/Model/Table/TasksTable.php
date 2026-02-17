@@ -15,7 +15,8 @@ use Cake\Http\Exception\NotFoundException;
 /**
  * Tasks Model
  *
- * @property \App\Model\Table\PositionsTable&\Cake\ORM\Association\BelongsTo $Positions
+ * @property \App\Model\Table\StatusesTable&\Cake\ORM\Association\BelongsTo $Statuses
+ * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
  *
  * @method \App\Model\Entity\Task newEmptyEntity()
  * @method \App\Model\Entity\Task newEntity(array $data, array $options = [])
@@ -47,17 +48,22 @@ class TasksTable extends Table
         parent::initialize($config);
 
         $this->setTable('tasks');
-        $this->setDisplayField('title');
+        $this->setDisplayField('text');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
-            'Positions' => ['task_count'],
+            'Statuses' => ['task_count'],
         ]);
 
-        $this->belongsTo('Positions', [
-            'foreignKey' => 'position_id',
+        $this->belongsTo('Statuses', [
+            'foreignKey' => 'status_id',
             'joinType' => 'INNER',
+        ]);
+        $this->belongsToMany('Tags', [
+            'foreignKey' => 'task_id',
+            'targetForeignKey' => 'tag_id',
+            'joinTable' => 'tags_tasks',
         ]);
     }
 
@@ -70,15 +76,14 @@ class TasksTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('position_id')
-            ->maxLength('position_id', 10)
-            ->notEmptyString('position_id');
+            ->nonNegativeInteger('status_id')
+            ->notEmptyString('status_id');
 
         $validator
-            ->scalar('title')
-            ->maxLength('title', 250)
-            ->requirePresence('title', 'create')
-            ->notEmptyString('title');
+            ->scalar('text')
+            ->maxLength('text', 1000)
+            ->requirePresence('text', 'create')
+            ->notEmptyString('text');
 
         $validator
             ->scalar('description')
@@ -100,6 +105,10 @@ class TasksTable extends Table
             ->integer('pos')
             ->notEmptyString('pos');
 
+        $validator
+            ->nonNegativeInteger('tag_count')
+            ->allowEmptyString('tag_count');
+
         return $validator;
     }
 
@@ -112,7 +121,7 @@ class TasksTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['position_id'], 'Positions'), ['errorField' => '0']);
+        $rules->add($rules->existsIn(['status_id'], 'Statuses'), ['errorField' => '0']);
 
         return $rules;
     }

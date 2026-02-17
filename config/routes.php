@@ -55,7 +55,8 @@ return function (RouteBuilder $routes): void {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        //$builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/', ['controller' => 'Tasks', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -99,6 +100,16 @@ return function (RouteBuilder $routes): void {
             //$builder->setExtensions(['json', 'xml', 'xlsx']);
             $builder->connect('/', ['controller' => 'Tasks', 'action' => 'index']);
             $builder->fallbacks(DashedRoute::class);
+        });
+    });
+
+    $routes->prefix('Api', function (RouteBuilder $builder) {
+        $builder->scope('/', function (RouteBuilder $builder) {
+			$builder->setExtensions(['json']);
+            //$builder->connect('/', ['controller' => 'Tasks', 'action' => 'index'], ['routeClass' => 'DashedRoute']);
+            $builder->connect('/', ['controller' => 'Tasks', 'action' => 'index']);
+            //$builder->fallbacks(DashedRoute::class);
+			$builder->fallbacks();
         });
     });
 

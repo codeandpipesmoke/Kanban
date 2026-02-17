@@ -24,15 +24,16 @@ class TasksFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'position_id' => 'Lorem ip',
-                'title' => 'Lorem ipsum dolor sit amet',
+                'status_id' => 1,
+                'text' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'priority' => 1,
                 'deleted' => 1,
                 'visible' => 1,
                 'pos' => 1,
-                'created' => '2026-02-17 08:10:34',
-                'modified' => '2026-02-17 08:10:34',
+                'tag_count' => 1,
+                'created' => '2026-02-17 13:43:20',
+                'modified' => '2026-02-17 13:43:20',
             ],
         ];
         parent::init();

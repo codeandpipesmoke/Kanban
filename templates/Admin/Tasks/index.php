@@ -59,8 +59,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
-											<th class="string position-id"><?= $this->Paginator->sort('position_id') ?></th><!-- H.0. -->
-											<th class="string title"><?= $this->Paginator->sort('title') ?></th><!-- H.1. -->
+											<th class="string status-id"><?= $this->Paginator->sort('status_id') ?></th><!-- H.0. -->
+											<th class="string text"><?= $this->Paginator->sort('text') ?></th><!-- H.1. -->
 											<th class="boolean priority"><?= $this->Paginator->sort('priority') ?></th><!-- H.1. -->
 											<th class="boolean deleted"><?= $this->Paginator->sort('deleted') ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
@@ -69,6 +69,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_visible']){ ?>
 											<th class="boolean visible"><?= $this->Paginator->sort('visible') ?></th>
 <?php } ?>
+<?php if($config['show_counters']){ ?>
+											<th class="number counter tag_count"><?= $this->Paginator->sort('tag_count') ?></th><?php } ?>
 <?php if($config['show_created'] || $config['show_modified']){ ?>
 
 											<th class="datetime created modified">
@@ -102,8 +104,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<td class="number id" value="<?= $task->id ?>"><?= h($task->id) ?><a name="<?= $task->id ?>"></a></td>
 <?php } ?>
-											<td class="string link position-id" value="<?= $task->position_id ?>"><?= $task->hasValue('position') ? $this->Html->link($task->position->name, ['controller' => 'Positions', 'action' => 'view', $task->position->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string title" value="<?= $task->title ?>"><?= h($task->title) ?></td>
+											<td class="string link status-id" value="<?= $task->status_id ?>"><?= $task->hasValue('status') ? $this->Html->link($task->status->status, ['controller' => 'Statuses', 'action' => 'view', $task->status->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
+											<td class="string text" value="<?= $task->text ?>"><?= h($task->text) ?></td>
 											<td class="boolean priority" value="<?= $task->priority ?>"><?= h($task->priority) ?></td>
 											<td class="boolean deleted" value="<?= $task->deleted ?>"><?= h($task->deleted) ?></td>
 <?php if($config['show_pos']){ ?>
@@ -112,6 +114,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_visible']){ ?>
 											<td class="boolean visible" value="<?= $task->visible ?>"><?= h($task->visible) ?></td>
 <?php } ?>
+<?php if($config['show_counters']){ ?>
+											<td class="number counter tag-count" value="<?= $task->tag_count ?>"><?= h($task->tag_count) ?></td><?php } ?>
 <?php if($config['show_created'] || $config['show_modified']){ ?>
 											<td class="datetime">
 <?php if($config['show_created']){ ?>

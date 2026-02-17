@@ -126,7 +126,7 @@ class TasksController extends AppController
 		if($search !== ''){
 			$showSearchBar	 = true;
 			$query = $this->Tasks->find()
-				->contain(['Positions'])
+				->contain(['Statuses'])
 				->where([
 					//$conditions,
 					'OR' => [
@@ -136,7 +136,7 @@ class TasksController extends AppController
 					]
 				]);
 		}else{
-			$query = $this->Tasks->find()->contain(['Positions'])->where($conditions);
+			$query = $this->Tasks->find()->contain(['Statuses'])->where($conditions);
 		}
 		// ############################# /.QUERY ###########################################
 
@@ -194,7 +194,7 @@ class TasksController extends AppController
 		//));
 
 		try {
-			$task = $this->Tasks->get((int) $id, contain: ['Positions']);
+			$task = $this->Tasks->get((int) $id, contain: ['Statuses', 'Tags']);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
@@ -246,8 +246,9 @@ class TasksController extends AppController
             //$this->Flash->error(__('The task could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
             $this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $positions = $this->Tasks->Positions->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
-        $this->set(compact('task', 'positions'));
+        $statuses = $this->Tasks->Statuses->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'status' => 'asc'])->all();
+        $tags = $this->Tasks->Tags->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'value' => 'asc'])->all();
+        $this->set(compact('task', 'statuses', 'tags'));
     }
 
     /**
@@ -264,7 +265,7 @@ class TasksController extends AppController
 		//));
 
 		try {
-			$task = $this->Tasks->get((int) $id, contain: []);
+			$task = $this->Tasks->get((int) $id, contain: ['Tags']);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
@@ -299,9 +300,10 @@ class TasksController extends AppController
 			//$this->Flash->error(__('The task could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
 			$this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $positions = $this->Tasks->Positions->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $statuses = $this->Tasks->Statuses->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'status' => 'asc'])->all();
+        $tags = $this->Tasks->Tags->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'value' => 'asc'])->all();
 		$name = $task->name;
-        $this->set(compact('task', 'positions', 'id', 'name'));
+        $this->set(compact('task', 'statuses', 'tags', 'id', 'name'));
     }
 
     /**

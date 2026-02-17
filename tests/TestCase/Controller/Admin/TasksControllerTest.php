@@ -27,7 +27,9 @@ class TasksControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.Tasks',
-        'app.Positions',
+        'app.Statuses',
+        'app.Tags',
+        'app.TagsTasks',
     ];
 
     /**

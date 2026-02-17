@@ -54,6 +54,14 @@ $config = array_merge($global_config, $local_config);
 										</li>
 */ ?>
 
+										<li class="nav-item dropdown">
+											<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?= __('Related tables') ?></a>
+											<ul class="dropdown-menu">
+<?php if (!empty($task->tags)) : ?>
+												<li><?= $this->Html->link(__('Tags') . '...', ['controller' => 'Tags', 'action' => 'index', 'parent', 'task', $task->id], ['class' => 'dropdown-item']) ?></li>
+<?php endif ?>
+											</ul>
+										</li>
 
 									</ul>
 								</div>
@@ -74,15 +82,15 @@ $config = array_merge($global_config, $local_config);
 											</div>
 <?php } ?>
 											<div class="row"><!-- 1. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Position') ?>:</label>
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Status') ?>:</label>
 												<div class="col-sm-10 p-1 link">
-													<?= $task->hasValue('position') ? $this->Html->link($task->position->name, ['controller' => 'Positions', 'action' => 'view', $task->position->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+													<?= $task->hasValue('status') ? $this->Html->link($task->status->status, ['controller' => 'Statuses', 'action' => 'view', $task->status->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
 												</div>
 											</div>
 											<div class="row"><!-- 2. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Title') ?>:</label>
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Text') ?>:</label>
 												<div class="col-sm-10 p-1">
-													<?= h($task->title) ?>
+													<?= h($task->text) ?>
 
 												</div>
 											</div>
@@ -109,6 +117,15 @@ $config = array_merge($global_config, $local_config);
 												</div>
 											</div>
 */ ?>
+<?php if($config['show_counters']){ ?>
+											<div class="row"><!-- counter helper -->
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Tag Count') ?>:</label>
+												<div class="col-sm-10 p-1">
+													<?= $task->tag_count === null ? '' : $this->Number->format($task->tag_count) ?><!-- 3.a -->
+												</div>
+											</div>
+<?php } ?>
+
 
 										</div><!-- /.1.TAB -->
 										
@@ -162,6 +179,117 @@ $config = array_merge($global_config, $local_config);
 	############################################################################################################################################################
 */ ?>
 <?php if($config['show_related_tables']): ?>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<div class="card mb-3">
+
+							<div class="card-header">
+							
+								<div class="float-start">
+									<h3><i class="fa fa-table"></i> <?= __('Related tables') ?></h3>
+									<?= __('Here you can see the latest records related to the above item.') ?>
+								</div>
+
+								<div class="form-tab float-end">
+									<nav>
+										<div class="nav nav-tabs mt-1" id="nav-tab" role="tablist">
+<?php $acticeClass = " active"; ?>
+<?php if (!empty($task->tags)): ?>
+
+											<button class="nav-link<?= $acticeClass ?>" id="nav-tags-tab" data-bs-toggle="tab" data-bs-target="#nav-tags" type="button" role="tab" aria-controls="nav-tags" aria-selected="true">
+												<?= __('Tags') ?>
+											</button>
+<?php 	$acticeClass = ""; ?>
+<?php endif ?>
+										</div>
+									</nav>
+								</div>
+
+							</div><!-- /card header -->
+								
+							<div class="card-body p-1 pb-0">
+
+								<div class="tab-content" id="nav-tabContent">
+
+<?php $acticeClass = " show active"; ?>
+<?php if (!empty($task->tags)): ?>
+
+									<div class="tab-pane fade<?= $acticeClass ?> p-0" id="nav-tags" role="tabpanel" aria-labelledby="nav-tags-tab" tabindex="0">
+
+										<table class="table table-responsive-xl table-hover table-striped" style="">
+											<thead class="thead-info">
+												<tr>
+<?php if($config['index_show_id']){ ?>
+													<th class="number id"><?= __('Id') ?></th>
+<?php } ?>
+													<th class="please-change-type value"><?= __('Value') ?></th>
+<?php if($config['index_show_pos']){ ?>
+													<th class="number pos"><?= __('Pos') ?></th>
+<?php } ?>
+<?php if($config['index_show_visible']){ ?>
+													<th class="boolean visible"><?= __('Visible') ?></th>
+<?php } ?>
+<?php if($config['index_show_counters']){ ?>
+													<th class="number task-count"><?= __('Task Count') ?></th>
+<?php } ?>
+<?php if($config['index_show_created']){ ?>
+													<th class="datetime created"><?= __('Created') ?></th>
+<?php } ?>
+<?php if($config['index_show_modified']){ ?>
+													<th class="datetime modified"><?= __('Modified') ?></th>
+<?php } ?>
+													<th class="actions"><?= __('Actions') ?></th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php foreach ($task->tags as $tags) : ?>
+
+												<tr>
+<?php if($config['index_show_id']){ ?>
+													<td class="number id" value="<?= $tags->id ?>"><?= h($tags->id) ?></td>
+<?php } ?>
+													<td class="please-change-type value" value="<?= $tags->value ?>"><?= h($tags->value) ?></td>
+<?php if($config['index_show_pos']){ ?>
+													<td class="number pos" value="<?= $tags->pos ?>"><?= h($tags->pos) ?></td>
+<?php } ?>
+<?php if($config['index_show_visible']){ ?>
+													<td class="boolean visible" value="<?= $tags->visible ?>"><?= h($tags->visible) ?></td>
+<?php } ?>
+<?php if($config['index_show_counters']){ ?>
+													<td class="number task-count" value="<?= $tags->task_count ?>"><?= h($tags->task_count) ?></td>
+<?php } ?>
+<?php if($config['index_show_created']){ ?>
+													<td class="datetime created" value="<?= $tags->created ?>"><?= h($tags->created) ?></td>
+<?php } ?>
+<?php if($config['index_show_modified']){ ?>
+													<td class="datetime modified" value="<?= $tags->modified ?>"><?= h($tags->modified) ?></td>
+<?php } ?>
+													<td class="actions">
+														<?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'Tags', 'action' => 'view', $tags->id], ["escape" => false, "role" => "button",  "class" => "btn btn-warning btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", "title" => __('View this item'), "data-original-title" => ""]) ?><!-- view button -->
+														<?= $this->Html->link('<i class="fa fa-edit"></i>', ['controller' => 'Tags', 'action' => 'edit', $tags->id], ["escape" => false, "role" => "button", "class" => "btn btn-primary btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", "title" => __('Edit this item'), "data-original-title" => ""]) ?><!-- edit button -->
+														<?= $this->Form->postLink('<i class="fa fa-times"></i>', ['controller' => 'Tags', 'action' => 'delete', $tags->id], ["escape" => false, "role" => "button", "class" => "btn btn-danger btn-sm", "data-toggle" =>"tooltip", "data-placement" => "top", "title" => __('Delete this item'), "data-original-title" => "", "confirm" => __("Are you sure you want to delete # {0}?", $tags->id)]) ?><!-- delete button -->
+													</td>
+												</tr>
+												<?php endforeach ?>
+
+											</tbody>
+										</table>
+
+									</div><!-- /tab pane -->
+<?php 	$acticeClass = ""; ?>
+<?php endif ?>
+
+								</div><!-- /tab content -->
+
+							</div><!-- /card body -->
+
+						    <div class="card-footer">
+								<!-- Bottom text! -->
+							</div><!-- /card footer -->
+							
+						</div><!-- end card -->
+                    </div><!-- end col -->
+				</div><!-- end row -->
 <?php endif // $config['show_related_tables'] ?>
 
 <?php

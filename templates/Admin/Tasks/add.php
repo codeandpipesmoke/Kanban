@@ -2,7 +2,8 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Task $task
- * @var \Cake\Collection\CollectionInterface|string[] $positions
+ * @var \Cake\Collection\CollectionInterface|string[] $statuses
+ * @var \Cake\Collection\CollectionInterface|string[] $tags
  */
 ?>
 <?php
@@ -64,20 +65,20 @@ $this->assign('title', __('Add') . ' ' . __('Task'));
 										
 										<div class="tab-pane fade show active" id="tabPanelMain" role="tabpanel" aria-labelledby="tabMain" tabindex="0">
 
-											<!-- 1. SELECT: position_id: string  required -->
+											<!-- 1. SELECT: status_id: integer  required -->
 											<div class="mb-3 form-group row select required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="position-id"><?= __('Position Id') ?>:</label>
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="status-id"><?= __('Status Id') ?>:</label>
 												<div class="col-md-4">
-													<?= $this->Form->control('position_id', ['options' => $positions, 'placeholder' => __('Position Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
+													<?= $this->Form->control('status_id', ['options' => $statuses, 'placeholder' => __('Status Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
 
 												</div>
 											</div>
 
-											<!-- 2. STRING: title: string  required -->
+											<!-- 2. STRING: text: string  required -->
 											<div class="mb-3 form-group row text required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="title"><?= __('Title') ?>:</label>
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="text"><?= __('Text') ?>:</label>
 												<div class="col-md-9">
-													<?= $this->Form->control('title', ['label' => __('Title'), 'placeholder' => __('Title'), 'class' => 'form-control', 'empty' => false]); ?>
+													<?= $this->Form->control('text', ['label' => __('Text'), 'placeholder' => __('Text'), 'class' => 'form-control', 'empty' => false]); ?>
 
 												</div>
 											</div>
@@ -115,6 +116,14 @@ $this->assign('title', __('Add') . ' ' . __('Task'));
 												<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4 col-xxl-4">
 													<?= $this->Form->control('pos', ['class' => 'form-control', 'placeholder' => __('Pos'), 'data-decimals' => '0', 'min' => '0', 'max' => '999999999999', 'step' => '1', 'empty' => false]); ?>
 
+												</div>
+											</div>
+
+											<!-- 9. MULTISELECT: tags -->
+											<div class="mb-3 form-group row select">
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end" for="tags"><?= __('Tags') ?>:</label>
+												<div class="col-md-9">
+													<?= $this->Form->control('tags._ids', ['class' => 'form-control', 'placeholder' => __('Tags'), 'options' => $tags, 'data-live-search' => false, 'data-actions-box' => false, 'data-container' => 'body', 'data-size' => '6']); ?>
 												</div>
 											</div>
 

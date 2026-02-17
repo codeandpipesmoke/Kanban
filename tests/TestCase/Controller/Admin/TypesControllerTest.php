@@ -1,0 +1,86 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Test\TestCase\Controller\Admin;
+
+
+use App\Controller\Admin\TypesController;
+use Cake\TestSuite\IntegrationTestTrait;
+use Cake\TestSuite\TestCase;
+use Cake\Core\Configure;
+use Cake\Http\Exception\NotFoundException;
+
+
+/**
+ * App\Controller\Admin\TypesController Test Case
+ *
+ * @link \App\Controller\Admin\TypesController
+ */
+class TypesControllerTest extends TestCase
+{
+    use IntegrationTestTrait;
+
+    /**
+     * Fixtures
+     *
+     * @var array<string>
+     */
+    protected array $fixtures = [
+        'app.Types',
+    ];
+
+    /**
+     * Test index method
+     *
+     * @return void
+     * @link \App\Controller\Admin\TypesController::index()
+     */
+    public function testIndex(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test view method
+     *
+     * @return void
+     * @link \App\Controller\Admin\TypesController::view()
+     */
+    public function testView(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test add method
+     *
+     * @return void
+     * @link \App\Controller\Admin\TypesController::add()
+     */
+    public function testAdd(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     * @link \App\Controller\Admin\TypesController::edit()
+     */
+    public function testEdit(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     * @link \App\Controller\Admin\TypesController::delete()
+     */
+    public function testDelete(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<title>Adding New Items</title>
+	<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+	<script src="../../codebase/webix/webix.js?v=11.3.1" type="text/javascript"></script>
+	<script src="../../codebase/kanban.js?v=11.3.1" type="text/javascript"></script>
+
+	<link rel="stylesheet" type="text/css" href="../../codebase/webix/webix.css?v=11.3.1">
+	<link rel="stylesheet" type="text/css" href="../../codebase/kanban.css?v=11.3.1">
+
+	<script src="../common/data.js?v=11.3.1"></script>
+
+	<style>
+		.toolbar{
+			background-color: #f8f8f8;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	var tags_set = [
+		{id:1, value:"Adatbázis"},
+		{id:2, value:"Képújság"},
+		{id:3, value:"Web"},
+		{id:4, value:"WinKtv"},
+	];
+
+	webix.ready(function(){
+		webix.CustomScroll.init();
+
+		function onAfterDrop(dragContext,e,list){
+
+			// item id
+			var item =this.getItem(dragContext.start);
+
+			// if we move an item from one list to another
+			if(dragContext.from != dragContext.to){
+				var status = dragContext.to.config.status;
+				// show a message with new status and order
+				webix.message("Item '"+item.text+"' was moved into '"+status+"' column to the "+item.$index +" position");
+			}
+			else
+				webix.message("Item '"+item.text+"' was moved to the "+item.$index +" position");
+		}
+
+		webix.ui({
+			rows:[
+				{
+					css: "toolbar",
+					borderless: true,
+					paddingY:7,
+					paddingX:10,
+					margin: 7,					
+					cols:[
+						{ view: "label", label: "You can add and remove cards in Kanban Board"},
+						{ view: "button", type: "danger", label: "Remove selected", width: 150, click:() => {
+							var id = $$("myBoard").getSelectedId();
+							if(!id){
+								return webix.alert("Please selected a card that you want to remove!");
+							}
+							$$("myBoard").remove(id);
+						}},
+						{ view: "button", type: "form",  label: "Add new card", width: 150, click:() => {
+							$$("myBoard").showEditor();
+						}}
+					]
+				},
+				{
+					//view:"kanban", id: "myBoard",
+					view:"kanban",
+					id: "myBoard",
+					type: "wide",
+					on:{
+						onListAfterDrop: onAfterDrop
+					},
+					cols:[
+						{ header:"Backlog",
+							body:{ view:"kanbanlist", status:"new" }},
+						{ header:"In Progress",
+							body:{ view:"kanbanlist", status:"work" }},
+						{ header:"Testing",
+							body:{ view:"kanbanlist", status:"test" }},
+						{ header:"Done",
+							body:{ view:"kanbanlist", status:"done" }}
+					],
+					userList:true,
+					editor:true,
+					data: full_task_set,
+					tags: tags_set,
+					users: users_set,
+					colors: colors_set
+				}
+			]
+		});
+	});
+</script>
+</body>
+</html>

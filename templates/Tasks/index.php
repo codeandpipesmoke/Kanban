@@ -46,8 +46,8 @@
 						trackMove: true
 					},
 					
-					userList:true,
-					editor:true,
+					userList: true,
+					editor: true,
 					users: users_set
 				}
 			]

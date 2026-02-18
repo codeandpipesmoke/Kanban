@@ -15,7 +15,8 @@ use Cake\Http\Exception\NotFoundException;
 /**
  * Tasks Model
  *
- * @property \App\Model\Table\StatusesTable&\Cake\ORM\Association\BelongsTo $Statuses
+ * @property \App\Model\Table\ColsTable&\Cake\ORM\Association\BelongsTo $Cols
+ * @property \App\Model\Table\ColorsTable&\Cake\ORM\Association\BelongsTo $Colors
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
  *
  * @method \App\Model\Entity\Task newEmptyEntity()
@@ -48,16 +49,21 @@ class TasksTable extends Table
         parent::initialize($config);
 
         $this->setTable('tasks');
-        $this->setDisplayField('text');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
-            'Statuses' => ['task_count'],
+            'Cols' => ['task_count'],
+            'Colors' => ['task_count'],
         ]);
 
-        $this->belongsTo('Statuses', [
-            'foreignKey' => 'status_id',
+        $this->belongsTo('Cols', [
+            'foreignKey' => 'col_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Colors', [
+            'foreignKey' => 'color_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsToMany('Tags', [
@@ -76,14 +82,18 @@ class TasksTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->nonNegativeInteger('status_id')
-            ->notEmptyString('status_id');
+            ->nonNegativeInteger('col_id')
+            ->notEmptyString('col_id');
 
         $validator
-            ->scalar('text')
-            ->maxLength('text', 1000)
-            ->requirePresence('text', 'create')
-            ->notEmptyString('text');
+            ->nonNegativeInteger('color_id')
+            ->notEmptyString('color_id');
+
+        $validator
+            ->scalar('name')
+            ->maxLength('name', 1000)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
 
         $validator
             ->scalar('description')
@@ -121,7 +131,8 @@ class TasksTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['status_id'], 'Statuses'), ['errorField' => '0']);
+        $rules->add($rules->existsIn(['col_id'], 'Cols'), ['errorField' => '0']);
+        $rules->add($rules->existsIn(['color_id'], 'Colors'), ['errorField' => '1']);
 
         return $rules;
     }

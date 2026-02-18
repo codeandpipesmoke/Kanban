@@ -5,7 +5,6 @@
  * @var string[]|\Cake\Collection\CollectionInterface $projects
  * @var string[]|\Cake\Collection\CollectionInterface $views
  * @var string[]|\Cake\Collection\CollectionInterface $types
- * @var string[]|\Cake\Collection\CollectionInterface $statuses
  */
 ?>
 <?php
@@ -90,20 +89,20 @@ $this->assign('title', __('Edit') . ' ' . __('Col'));
 												</div>
 											</div>
 
-											<!-- 1. SELECT: status_id: integer  required -->
-											<div class="mb-3 form-group row select required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="status-id"><?= __('Status Id') ?>:</label>
-												<div class="col-md-4">
-													<?= $this->Form->control('status_id', ['options' => $statuses, 'placeholder' => __('Status Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
+											<!-- 2. STRING: name: string  required -->
+											<div class="mb-3 form-group row text required">
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="name"><?= __('Name') ?>:</label>
+												<div class="col-md-9">
+													<?= $this->Form->control('name', ['label' => __('Name'), 'placeholder' => __('Name'), 'class' => 'form-control', 'empty' => false, 'autofocus' => true]); ?>
 
 												</div>
 											</div>
 
-											<!-- 2. STRING: header: string  required -->
+											<!-- 2. STRING: status: string  required -->
 											<div class="mb-3 form-group row text required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="header"><?= __('Header') ?>:</label>
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="status"><?= __('Status') ?>:</label>
 												<div class="col-md-9">
-													<?= $this->Form->control('header', ['label' => __('Header'), 'placeholder' => __('Header'), 'class' => 'form-control', 'empty' => false]); ?>
+													<?= $this->Form->control('status', ['label' => __('Status'), 'placeholder' => __('Status'), 'class' => 'form-control', 'empty' => false]); ?>
 
 												</div>
 											</div>

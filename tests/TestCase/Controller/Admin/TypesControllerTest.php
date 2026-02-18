@@ -27,6 +27,7 @@ class TypesControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.Types',
+        'app.Cols',
     ];
 
     /**

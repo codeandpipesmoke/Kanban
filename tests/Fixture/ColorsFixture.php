@@ -24,12 +24,13 @@ class ColorsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'value' => 'Lorem ipsum dolor sit amet',
+                'name' => 'Lorem ipsum dolor sit amet',
+                'color' => 'Lorem ipsum dolor ',
                 'pos' => 1,
                 'visible' => 1,
                 'task_count' => 1,
-                'created' => '2026-02-17 13:43:19',
-                'modified' => '2026-02-17 13:43:19',
+                'created' => '2026-02-18 14:10:07',
+                'modified' => '2026-02-18 14:10:07',
             ],
         ];
         parent::init();

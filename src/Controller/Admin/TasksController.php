@@ -126,7 +126,7 @@ class TasksController extends AppController
 		if($search !== ''){
 			$showSearchBar	 = true;
 			$query = $this->Tasks->find()
-				->contain(['Statuses'])
+				->contain(['Cols', 'Colors'])
 				->where([
 					//$conditions,
 					'OR' => [
@@ -136,7 +136,7 @@ class TasksController extends AppController
 					]
 				]);
 		}else{
-			$query = $this->Tasks->find()->contain(['Statuses'])->where($conditions);
+			$query = $this->Tasks->find()->contain(['Cols', 'Colors'])->where($conditions);
 		}
 		// ############################# /.QUERY ###########################################
 
@@ -194,7 +194,7 @@ class TasksController extends AppController
 		//));
 
 		try {
-			$task = $this->Tasks->get((int) $id, contain: ['Statuses', 'Tags']);
+			$task = $this->Tasks->get((int) $id, contain: ['Cols', 'Colors', 'Tags']);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
@@ -246,9 +246,10 @@ class TasksController extends AppController
             //$this->Flash->error(__('The task could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
             $this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $statuses = $this->Tasks->Statuses->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'status' => 'asc'])->all();
-        $tags = $this->Tasks->Tags->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'value' => 'asc'])->all();
-        $this->set(compact('task', 'statuses', 'tags'));
+        $cols = $this->Tasks->Cols->find('list', conditions: [], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $colors = $this->Tasks->Colors->find('list', conditions: [], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $tags = $this->Tasks->Tags->find('list', conditions: [], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $this->set(compact('task', 'cols', 'colors', 'tags'));
     }
 
     /**
@@ -300,10 +301,11 @@ class TasksController extends AppController
 			//$this->Flash->error(__('The task could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
 			$this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $statuses = $this->Tasks->Statuses->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'status' => 'asc'])->all();
-        $tags = $this->Tasks->Tags->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'value' => 'asc'])->all();
+        $cols = $this->Tasks->Cols->find('list', conditions: [], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $colors = $this->Tasks->Colors->find('list', conditions: [], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $tags = $this->Tasks->Tags->find('list', conditions: [], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
 		$name = $task->name;
-        $this->set(compact('task', 'statuses', 'tags', 'id', 'name'));
+        $this->set(compact('task', 'cols', 'colors', 'tags', 'id', 'name'));
     }
 
     /**

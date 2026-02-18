@@ -2,7 +2,8 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Task $task
- * @var string[]|\Cake\Collection\CollectionInterface $statuses
+ * @var string[]|\Cake\Collection\CollectionInterface $cols
+ * @var string[]|\Cake\Collection\CollectionInterface $colors
  * @var string[]|\Cake\Collection\CollectionInterface $tags
  */
 ?>
@@ -65,20 +66,29 @@ $this->assign('title', __('Edit') . ' ' . __('Task'));
 										
 										<div class="tab-pane fade show active" id="tabPanelMain" role="tabpanel" aria-labelledby="tabMain" tabindex="0">
 
-											<!-- 1. SELECT: status_id: integer  required -->
+											<!-- 1. SELECT: col_id: integer  required -->
 											<div class="mb-3 form-group row select required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="status-id"><?= __('Status Id') ?>:</label>
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="col-id"><?= __('Col Id') ?>:</label>
 												<div class="col-md-4">
-													<?= $this->Form->control('status_id', ['options' => $statuses, 'placeholder' => __('Status Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
+													<?= $this->Form->control('col_id', ['options' => $cols, 'placeholder' => __('Col Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
 
 												</div>
 											</div>
 
-											<!-- 2. STRING: text: string  required -->
+											<!-- 1. SELECT: color_id: integer  required -->
+											<div class="mb-3 form-group row select required">
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="color-id"><?= __('Color Id') ?>:</label>
+												<div class="col-md-4">
+													<?= $this->Form->control('color_id', ['options' => $colors, 'placeholder' => __('Color Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
+
+												</div>
+											</div>
+
+											<!-- 2. STRING: name: string  required -->
 											<div class="mb-3 form-group row text required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="text"><?= __('Text') ?>:</label>
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="name"><?= __('Name') ?>:</label>
 												<div class="col-md-9">
-													<?= $this->Form->control('text', ['label' => __('Text'), 'placeholder' => __('Text'), 'class' => 'form-control', 'empty' => false]); ?>
+													<?= $this->Form->control('name', ['label' => __('Name'), 'placeholder' => __('Name'), 'class' => 'form-control', 'empty' => false, 'autofocus' => true]); ?>
 
 												</div>
 											</div>

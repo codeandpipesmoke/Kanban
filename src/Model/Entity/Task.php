@@ -13,8 +13,9 @@ use Cake\Http\Exception\NotFoundException;
  * Task Entity
  *
  * @property int $id
- * @property int $status_id
- * @property string $text
+ * @property int $col_id
+ * @property int $color_id
+ * @property string $name
  * @property string|null $description
  * @property bool $priority
  * @property bool $deleted
@@ -24,7 +25,8 @@ use Cake\Http\Exception\NotFoundException;
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
- * @property \App\Model\Entity\Status $status
+ * @property \App\Model\Entity\Col $col
+ * @property \App\Model\Entity\Color $color
  * @property \App\Model\Entity\Tag[] $tags
  */
 class Task extends Entity
@@ -39,8 +41,9 @@ class Task extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'status_id' => true,
-        'text' => true,
+        'col_id' => true,
+        'color_id' => true,
+        'name' => true,
         'description' => true,
         'priority' => true,
         'deleted' => true,
@@ -49,7 +52,8 @@ class Task extends Entity
         'tag_count' => true,
         'created' => true,
         'modified' => true,
-        'status' => true,
+        'col' => true,
+        'color' => true,
         'tags' => true,
     ];
 }

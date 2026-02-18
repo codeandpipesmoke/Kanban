@@ -29,6 +29,7 @@ class ColorsTableTest extends TestCase
      */
     protected array $fixtures = [
         'app.Colors',
+        'app.Tasks',
     ];
 
     /**

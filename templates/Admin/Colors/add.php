@@ -59,11 +59,20 @@ $this->assign('title', __('Add') . ' ' . __('Color'));
 										
 										<div class="tab-pane fade show active" id="tabPanelMain" role="tabpanel" aria-labelledby="tabMain" tabindex="0">
 
-											<!-- 2. STRING: value: string  required -->
+											<!-- 2. STRING: name: string  required -->
 											<div class="mb-3 form-group row text required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="value"><?= __('Value') ?>:</label>
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="name"><?= __('Name') ?>:</label>
 												<div class="col-md-9">
-													<?= $this->Form->control('value', ['label' => __('Value'), 'placeholder' => __('Value'), 'class' => 'form-control', 'empty' => false]); ?>
+													<?= $this->Form->control('name', ['label' => __('Name'), 'placeholder' => __('Name'), 'class' => 'form-control', 'empty' => false, 'autofocus' => true]); ?>
+
+												</div>
+											</div>
+
+											<!-- 2. STRING: color: string  required -->
+											<div class="mb-3 form-group row text required">
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="color"><?= __('Color') ?>:</label>
+												<div class="col-md-9">
+													<?= $this->Form->control('color', ['label' => __('Color'), 'placeholder' => __('Color'), 'class' => 'form-control', 'empty' => false]); ?>
 
 												</div>
 											</div>

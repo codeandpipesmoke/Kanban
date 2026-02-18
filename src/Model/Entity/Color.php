@@ -13,12 +13,15 @@ use Cake\Http\Exception\NotFoundException;
  * Color Entity
  *
  * @property int $id
- * @property string $value
+ * @property string $name
+ * @property string $color
  * @property int $pos
  * @property bool $visible
  * @property int|null $task_count
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
+ *
+ * @property \App\Model\Entity\Task[] $tasks
  */
 class Color extends Entity
 {
@@ -32,11 +35,13 @@ class Color extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'value' => true,
+        'name' => true,
+        'color' => true,
         'pos' => true,
         'visible' => true,
         'task_count' => true,
         'created' => true,
         'modified' => true,
+        'tasks' => true,
     ];
 }

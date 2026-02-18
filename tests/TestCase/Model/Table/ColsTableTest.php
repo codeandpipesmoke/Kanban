@@ -32,7 +32,7 @@ class ColsTableTest extends TestCase
         'app.Projects',
         'app.Views',
         'app.Types',
-        'app.Statuses',
+        'app.Tasks',
     ];
 
     /**

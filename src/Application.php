@@ -63,8 +63,8 @@ class Application extends BaseApplication
 				} else {
 					$ip = $_SERVER['REMOTE_ADDR'];
 				}
+				return false;
 				return $ip === '127.0.0.1';
-				//return false;
 			});
 		}
     }

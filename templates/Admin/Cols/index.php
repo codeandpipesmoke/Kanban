@@ -62,8 +62,8 @@ $config = array_merge($global_config, $local_config);
 											<th class="string project-id"><?= $this->Paginator->sort('project_id') ?></th><!-- H.0. -->
 											<th class="string view-id"><?= $this->Paginator->sort('view_id') ?></th><!-- H.0. -->
 											<th class="string type-id"><?= $this->Paginator->sort('type_id') ?></th><!-- H.0. -->
-											<th class="string status-id"><?= $this->Paginator->sort('status_id') ?></th><!-- H.0. -->
-											<th class="string header"><?= $this->Paginator->sort('header') ?></th><!-- H.1. -->
+											<th class="string name"><?= $this->Paginator->sort('name') ?></th><!-- H.1. -->
+											<th class="string status"><?= $this->Paginator->sort('status') ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
 											<th class="number pos"><?= $this->Paginator->sort('pos') ?></th>
 <?php } ?>
@@ -108,8 +108,8 @@ $config = array_merge($global_config, $local_config);
 											<td class="string link project-id" value="<?= $col->project_id ?>"><?= $col->hasValue('project') ? $this->Html->link($col->project->name, ['controller' => 'Projects', 'action' => 'view', $col->project->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
 											<td class="string link view-id" value="<?= $col->view_id ?>"><?= $col->hasValue('view') ? $this->Html->link($col->view->name, ['controller' => 'Views', 'action' => 'view', $col->view->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
 											<td class="string link type-id" value="<?= $col->type_id ?>"><?= $col->hasValue('type') ? $this->Html->link($col->type->name, ['controller' => 'Types', 'action' => 'view', $col->type->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string link status-id" value="<?= $col->status_id ?>"><?= $col->hasValue('status') ? $this->Html->link($col->status->status, ['controller' => 'Statuses', 'action' => 'view', $col->status->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string header" value="<?= $col->header ?>"><?= h($col->header) ?></td>
+											<td class="string name" value="<?= $col->name ?>"><?= h($col->name) ?></td>
+											<td class="string status" value="<?= $col->status ?>"><?= h($col->status) ?></td>
 <?php if($config['show_pos']){ ?>
 											<td class="number pos" value="<?= $col->pos ?>"><?= h($col->pos) ?></td>
 <?php } ?>

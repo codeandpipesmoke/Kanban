@@ -71,6 +71,12 @@ class ProjectsTable extends Table
             ->notEmptyString('name');
 
         $validator
+            ->scalar('project')
+            ->maxLength('project', 50)
+            ->requirePresence('project', 'create')
+            ->notEmptyString('project');
+
+        $validator
             ->scalar('description')
             ->allowEmptyString('description');
 

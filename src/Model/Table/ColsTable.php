@@ -18,7 +18,7 @@ use Cake\Http\Exception\NotFoundException;
  * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
  * @property \App\Model\Table\ViewsTable&\Cake\ORM\Association\BelongsTo $Views
  * @property \App\Model\Table\TypesTable&\Cake\ORM\Association\BelongsTo $Types
- * @property \App\Model\Table\StatusesTable&\Cake\ORM\Association\BelongsTo $Statuses
+ * @property \App\Model\Table\TasksTable&\Cake\ORM\Association\HasMany $Tasks
  *
  * @method \App\Model\Entity\Col newEmptyEntity()
  * @method \App\Model\Entity\Col newEntity(array $data, array $options = [])
@@ -50,14 +50,13 @@ class ColsTable extends Table
         parent::initialize($config);
 
         $this->setTable('cols');
-        $this->setDisplayField('header');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
             'Projects' => ['col_count'],
             'Views' => ['col_count'],
-            'Statuses' => ['col_count'],
         ]);
 
         $this->belongsTo('Projects', [
@@ -72,9 +71,8 @@ class ColsTable extends Table
             'foreignKey' => 'type_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Statuses', [
-            'foreignKey' => 'status_id',
-            'joinType' => 'INNER',
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'col_id',
         ]);
     }
 
@@ -99,14 +97,16 @@ class ColsTable extends Table
             ->notEmptyString('type_id');
 
         $validator
-            ->nonNegativeInteger('status_id')
-            ->notEmptyString('status_id');
+            ->scalar('name')
+            ->maxLength('name', 250)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
 
         $validator
-            ->scalar('header')
-            ->maxLength('header', 250)
-            ->requirePresence('header', 'create')
-            ->notEmptyString('header');
+            ->scalar('status')
+            ->maxLength('status', 50)
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
         $validator
             ->boolean('visible')
@@ -135,7 +135,6 @@ class ColsTable extends Table
         $rules->add($rules->existsIn(['project_id'], 'Projects'), ['errorField' => '0']);
         $rules->add($rules->existsIn(['view_id'], 'Views'), ['errorField' => '1']);
         $rules->add($rules->existsIn(['type_id'], 'Types'), ['errorField' => '2']);
-        $rules->add($rules->existsIn(['status_id'], 'Statuses'), ['errorField' => '3']);
 
         return $rules;
     }

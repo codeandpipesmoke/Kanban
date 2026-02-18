@@ -59,6 +59,15 @@ $this->assign('title', __('Add') . ' ' . __('Status'));
 										
 										<div class="tab-pane fade show active" id="tabPanelMain" role="tabpanel" aria-labelledby="tabMain" tabindex="0">
 
+											<!-- 2. STRING: name: string  required -->
+											<div class="mb-3 form-group row text required">
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="name"><?= __('Name') ?>:</label>
+												<div class="col-md-9">
+													<?= $this->Form->control('name', ['label' => __('Name'), 'placeholder' => __('Name'), 'class' => 'form-control', 'empty' => false, 'autofocus' => true]); ?>
+
+												</div>
+											</div>
+
 											<!-- 2. STRING: status: string  required -->
 											<div class="mb-3 form-group row text required">
 												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="status"><?= __('Status') ?>:</label>

@@ -245,7 +245,7 @@ class TagsController extends AppController
             //$this->Flash->error(__('The tag could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
             $this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $tasks = $this->Tags->Tasks->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'text' => 'asc'])->all();
+        $tasks = $this->Tags->Tasks->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
         $this->set(compact('tag', 'tasks'));
     }
 
@@ -298,9 +298,9 @@ class TagsController extends AppController
 			//$this->Flash->error(__('The tag could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
 			$this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $tasks = $this->Tags->Tasks->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'text' => 'asc'])->all();
-		$text = $tag->text;
-        $this->set(compact('tag', 'tasks', 'id', 'text'));
+        $tasks = $this->Tags->Tasks->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+		$name = $tag->name;
+        $this->set(compact('tag', 'tasks', 'id', 'name'));
     }
 
     /**

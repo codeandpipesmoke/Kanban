@@ -27,8 +27,8 @@ class TypesFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'visible' => 1,
                 'pos' => 1,
-                'created' => '2026-02-17 13:43:20',
-                'modified' => '2026-02-17 13:43:20',
+                'created' => '2026-02-18 14:10:09',
+                'modified' => '2026-02-18 14:10:09',
             ],
         ];
         parent::init();

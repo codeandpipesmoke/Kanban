@@ -14,6 +14,7 @@ use Cake\Http\Exception\NotFoundException;
  *
  * @property int $id
  * @property string $name
+ * @property string $project
  * @property string|null $description
  * @property bool $visible
  * @property int $pos
@@ -36,6 +37,7 @@ class Project extends Entity
      */
     protected array $_accessible = [
         'name' => true,
+        'project' => true,
         'description' => true,
         'visible' => true,
         'pos' => true,

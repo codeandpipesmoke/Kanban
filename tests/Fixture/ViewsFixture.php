@@ -28,8 +28,8 @@ class ViewsFixture extends TestFixture
                 'visible' => 1,
                 'pos' => 1,
                 'col_count' => 1,
-                'created' => '2026-02-17 13:43:21',
-                'modified' => '2026-02-17 13:43:21',
+                'created' => '2026-02-18 14:10:09',
+                'modified' => '2026-02-18 14:10:09',
             ],
         ];
         parent::init();

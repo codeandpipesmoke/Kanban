@@ -1,23 +1,23 @@
-//var tags_set = [
-//	{id:1, value:"webix "},
-//	{id:2, value:"jet 2"},
-//	{id:3, value:"easy 3"},
-//	{id:4, value:"hard 4"},
-//	{id:5, value:"kanban 5"},
-//	{id:6, value:"docs 6"},
-//];
+var tags_set = [
+	{id:1, value:"webix "},
+	{id:2, value:"jet 2"},
+	{id:3, value:"easy 3"},
+	{id:4, value:"hard 4"},
+	{id:5, value:"kanban 5"},
+	{id:6, value:"docs 6"},
+];
 
 var users_set = [
 	{id:1, value:"Zsolt", image:"/plugins/kanban/samples/common/imgs/7.jpg"},
 	//{id:1, value:"Rick Lopes", image:"../common/imgs/1.jpg"},
-	//{id:2, value:"Martin Farrell", image:"../common/imgs/2.jpg"},
-	//{id:3, value:"Douglass Moore", image:"../common/imgs/3.jpg"},
-	//{id:4, value:"Eric Doe", image:"../common/imgs/4.jpg"},
-	//{id:5, value:"Sophi Elliman", image:"../common/imgs/5.jpg"},
-	//{id:6, value:"Anna O'Neal"},
-	//{id:7, value:"Marcus Storm", image:"../common/imgs/7.jpg"},
-	//{id:8, value:"Nick Branson", image:"../common/imgs/8.jpg"},
-	//{id:9, value:"CC", image:"../common/imgs/9.jpg"}
+//	{id:2, value:"Martin Farrell", image:"../common/imgs/2.jpg"},
+//	{id:3, value:"Douglass Moore", image:"../common/imgs/3.jpg"},
+//	{id:4, value:"Eric Doe", image:"../common/imgs/4.jpg"},
+//	{id:5, value:"Sophi Elliman", image:"../common/imgs/5.jpg"},
+//	{id:6, value:"Anna O'Neal"},
+//	{id:7, value:"Marcus Storm", image:"../common/imgs/7.jpg"},
+//	{id:8, value:"Nick Branson", image:"../common/imgs/8.jpg"},
+//	{id:9, value:"CC", image:"../common/imgs/9.jpg"}
 ];
 
 var colors_set = [
@@ -28,21 +28,18 @@ var colors_set = [
 
 var full_task_set = [
 	{ id:1, status:"new", text:"Test new authentification service", tags:[1,2,3] },
-	{ id:2, status:"work", user_id: 5, text:"Performance tests 11", tags:[1] },
-	{ id:3, status:"work", user_id: 6, text:"Kanban tutorial 22", tags:[2] },
-	{ id:4, status:"work", user_id: 3, text:"SpreadSheet NodeJS 33", tags:[3] },
-	//{ id:5, status:"test", user_id: 9, text:"Portlets view 44", tags:[4,2] },
-	//{ id:6, status:"new", user_id: 7, text:"Form Builder 55", tags:[4,6] },
-	//{ id:7, status:"test", text:"Code Snippet", tags:[1,2,3] },
-	//{ id:8, status:"work", user_id: 1, text:"Backend integration", tags:[5] },
-	//{ id:9, status:"work", user_id: 2, text:"Drag-n-drop with shifting cards", tags:[5] },
-	//{ id:10, status:"work", user_id: 4, text:"Webix Jet 2.0", tags:[4] },
-	//{ id:11, status:"test", user_id: 9, text:"Chat app interface", tags:[4,2] },
+	{ id:2, status:"work", user_id: 5, color:"orange", text:"Performance tests 11", tags:[1] },
+	{ id:3, status:"work", user_id: 6, color:"orange", text:"Kanban tutorial 22", tags:[2] },
+	{ id:4, status:"work", user_id: 3, color:"orange", text:"SpreadSheet NodeJS 33", tags:[3] },
+	{ id:5, status:"test", user_id: 9, text:"Portlets view 44", tags:[4,2] },
+	{ id:6, status:"new", user_id: 7, text:"Form Builder 55", tags:[4,6] },
+	{ id:7, status:"test", text:"Code Snippet", tags:[1,2,3] },
+	{ id:8, status:"work", user_id: 1, text:"Backend integration", tags:[5] },
+	{ id:9, status:"work", user_id: 2, text:"Drag-n-drop with shifting cards", tags:[5] },
+	{ id:10, status:"work", user_id: 4, text:"Webix Jet 2.0", tags:[4] },
+	{ id:11, status:"test", user_id: 9, text:"Chat app interface", tags:[4,2] },
 	{ id:12, status:"done", user_id: 8, text:"Material skin", tags:[4,6] }
 ];
-
-
-
 
 
 
@@ -116,9 +113,9 @@ var user_task_set =[
 ];
 var team_task_set =[
 	{ id:1, status:"new", text:"Test new authentification service", user_id: 5, tags:[1], comments:[{text:"Comment 1"}, {text:"Comment 2"}] },
-	{ id:2, status:"work", team: 1, text:"Kanban tutorial", user_id: 2, tags:[2] },
-	{ id:3, status:"work", team: 2, text:"New skin", user_id: 9, tags:[4,2] },
-	{ id:4, status:"work", team: 1, text:"SpreadSheet NodeJS" },
+	{ id:2, status:"work", color:"green", team: 1, text:"Kanban tutorial", user_id: 2, tags:[2] },
+	{ id:3, status:"work", color:"green", team: 2, text:"New skin", user_id: 9, tags:[4,2] },
+	{ id:4, status:"work", color:"green", team: 1, text:"SpreadSheet NodeJS" },
 	{ id:5, status:"test", text:"Portlets view", user_id: 7, tags:[4,6] }
 ];
 

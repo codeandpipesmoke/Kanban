@@ -72,6 +72,15 @@ $this->assign('title', __('Add') . ' ' . __('Project'));
 												</div>
 											</div>
 
+											<!-- 2. STRING: project: string  required -->
+											<div class="mb-3 form-group row text required">
+												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="project"><?= __('Project') ?>:</label>
+												<div class="col-md-9">
+													<?= $this->Form->control('project', ['label' => __('Project'), 'placeholder' => __('Project'), 'class' => 'form-control', 'empty' => false]); ?>
+
+												</div>
+											</div>
+
 											<!-- 7. BOOLEAN: visible: boolean  required -->
 											<div class="mb-3 form-group row checkbox">
 												<div class="col-sm-2 col-form-label required"></div>

@@ -193,7 +193,7 @@ class TypesController extends AppController
 		//));
 
 		try {
-			$type = $this->Types->get((int) $id, contain: []);
+			$type = $this->Types->get((int) $id, contain: ['Cols']);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);

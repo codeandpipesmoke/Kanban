@@ -60,6 +60,7 @@ $config = array_merge($global_config, $local_config);
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
 											<th class="string name"><?= $this->Paginator->sort('name') ?></th><!-- H.1. -->
+											<th class="string project"><?= $this->Paginator->sort('project') ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
 											<th class="number pos"><?= $this->Paginator->sort('pos') ?></th>
 <?php } ?>
@@ -102,6 +103,7 @@ $config = array_merge($global_config, $local_config);
 											<td class="number id" value="<?= $project->id ?>"><?= h($project->id) ?><a name="<?= $project->id ?>"></a></td>
 <?php } ?>
 											<td class="string name" value="<?= $project->name ?>"><?= h($project->name) ?></td>
+											<td class="string project" value="<?= $project->project ?>"><?= h($project->project) ?></td>
 <?php if($config['show_pos']){ ?>
 											<td class="number pos" value="<?= $project->pos ?>"><?= h($project->pos) ?></td>
 <?php } ?>

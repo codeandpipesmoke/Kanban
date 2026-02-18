@@ -178,7 +178,7 @@ $config = array_merge($global_config, $local_config);
 													<th class="please-change-type project-id"><?= __('Project Id') ?></th>
 													<th class="please-change-type type-id"><?= __('Type Id') ?></th>
 													<th class="please-change-type status-id"><?= __('Status Id') ?></th>
-													<th class="please-change-type header"><?= __('Header') ?></th>
+													<th class="string name"><?= __('Name') ?></th>
 <?php if($config['index_show_visible']){ ?>
 													<th class="boolean visible"><?= __('Visible') ?></th>
 <?php } ?>
@@ -207,7 +207,7 @@ $config = array_merge($global_config, $local_config);
 													<td class="please-change-type project-id" value="<?= $cols->project_id ?>"><?= h($cols->project_id) ?></td>
 													<td class="please-change-type type-id" value="<?= $cols->type_id ?>"><?= h($cols->type_id) ?></td>
 													<td class="please-change-type status-id" value="<?= $cols->status_id ?>"><?= h($cols->status_id) ?></td>
-													<td class="please-change-type header" value="<?= $cols->header ?>"><?= h($cols->header) ?></td>
+													<td class="string name" value="<?= $cols->name ?>"><?= h($cols->name) ?></td>
 <?php if($config['index_show_visible']){ ?>
 													<td class="boolean visible" value="<?= $cols->visible ?>"><?= h($cols->visible) ?></td>
 <?php } ?>

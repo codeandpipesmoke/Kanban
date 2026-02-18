@@ -82,6 +82,13 @@ $config = array_merge($global_config, $local_config);
 											</div>
 <?php } ?>
 											<div class="row"><!-- 2. -->
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Name') ?>:</label>
+												<div class="col-sm-10 p-1">
+													<?= h($status->name) ?>
+
+												</div>
+											</div>
+											<div class="row"><!-- 2. -->
 												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Status') ?>:</label>
 												<div class="col-sm-10 p-1">
 													<?= h($status->status) ?>
@@ -198,7 +205,7 @@ $config = array_merge($global_config, $local_config);
 													<th class="please-change-type project-id"><?= __('Project Id') ?></th>
 													<th class="please-change-type view-id"><?= __('View Id') ?></th>
 													<th class="please-change-type type-id"><?= __('Type Id') ?></th>
-													<th class="please-change-type header"><?= __('Header') ?></th>
+													<th class="string name"><?= __('Name') ?></th>
 <?php if($config['index_show_visible']){ ?>
 													<th class="boolean visible"><?= __('Visible') ?></th>
 <?php } ?>
@@ -227,7 +234,7 @@ $config = array_merge($global_config, $local_config);
 													<td class="please-change-type project-id" value="<?= $cols->project_id ?>"><?= h($cols->project_id) ?></td>
 													<td class="please-change-type view-id" value="<?= $cols->view_id ?>"><?= h($cols->view_id) ?></td>
 													<td class="please-change-type type-id" value="<?= $cols->type_id ?>"><?= h($cols->type_id) ?></td>
-													<td class="please-change-type header" value="<?= $cols->header ?>"><?= h($cols->header) ?></td>
+													<td class="string name" value="<?= $cols->name ?>"><?= h($cols->name) ?></td>
 <?php if($config['index_show_visible']){ ?>
 													<td class="boolean visible" value="<?= $cols->visible ?>"><?= h($cols->visible) ?></td>
 <?php } ?>
@@ -268,7 +275,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['index_show_id']){ ?>
 													<th class="number id"><?= __('Id') ?></th>
 <?php } ?>
-													<th class="please-change-type text"><?= __('Text') ?></th>
+													<th class="please-change-type color-id"><?= __('Color Id') ?></th>
+													<th class="string name"><?= __('Name') ?></th>
 													<th class="please-change-type description"><?= __('Description') ?></th>
 													<th class="please-change-type priority"><?= __('Priority') ?></th>
 													<th class="please-change-type deleted"><?= __('Deleted') ?></th>
@@ -297,7 +305,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['index_show_id']){ ?>
 													<td class="number id" value="<?= $tasks->id ?>"><?= h($tasks->id) ?></td>
 <?php } ?>
-													<td class="please-change-type text" value="<?= $tasks->text ?>"><?= h($tasks->text) ?></td>
+													<td class="please-change-type color-id" value="<?= $tasks->color_id ?>"><?= h($tasks->color_id) ?></td>
+													<td class="string name" value="<?= $tasks->name ?>"><?= h($tasks->name) ?></td>
 													<td class="please-change-type description" value="<?= $tasks->description ?>"><?= h($tasks->description) ?></td>
 													<td class="please-change-type priority" value="<?= $tasks->priority ?>"><?= h($tasks->priority) ?></td>
 													<td class="please-change-type deleted" value="<?= $tasks->deleted ?>"><?= h($tasks->deleted) ?></td>

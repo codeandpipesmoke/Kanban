@@ -59,8 +59,9 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
-											<th class="string status-id"><?= $this->Paginator->sort('status_id') ?></th><!-- H.0. -->
-											<th class="string text"><?= $this->Paginator->sort('text') ?></th><!-- H.1. -->
+											<th class="string col-id"><?= $this->Paginator->sort('col_id') ?></th><!-- H.0. -->
+											<th class="string color-id"><?= $this->Paginator->sort('color_id') ?></th><!-- H.0. -->
+											<th class="string name"><?= $this->Paginator->sort('name') ?></th><!-- H.1. -->
 											<th class="boolean priority"><?= $this->Paginator->sort('priority') ?></th><!-- H.1. -->
 											<th class="boolean deleted"><?= $this->Paginator->sort('deleted') ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
@@ -104,8 +105,9 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<td class="number id" value="<?= $task->id ?>"><?= h($task->id) ?><a name="<?= $task->id ?>"></a></td>
 <?php } ?>
-											<td class="string link status-id" value="<?= $task->status_id ?>"><?= $task->hasValue('status') ? $this->Html->link($task->status->status, ['controller' => 'Statuses', 'action' => 'view', $task->status->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string text" value="<?= $task->text ?>"><?= h($task->text) ?></td>
+											<td class="string link col-id" value="<?= $task->col_id ?>"><?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
+											<td class="string link color-id" value="<?= $task->color_id ?>"><?= $task->hasValue('color') ? $this->Html->link($task->color->name, ['controller' => 'Colors', 'action' => 'view', $task->color->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
+											<td class="string name" value="<?= $task->name ?>"><?= h($task->name) ?></td>
 											<td class="boolean priority" value="<?= $task->priority ?>"><?= h($task->priority) ?></td>
 											<td class="boolean deleted" value="<?= $task->deleted ?>"><?= h($task->deleted) ?></td>
 <?php if($config['show_pos']){ ?>

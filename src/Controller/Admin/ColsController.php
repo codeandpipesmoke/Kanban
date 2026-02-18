@@ -126,7 +126,7 @@ class ColsController extends AppController
 		if($search !== ''){
 			$showSearchBar	 = true;
 			$query = $this->Cols->find()
-				->contain(['Projects', 'Views', 'Types', 'Statuses'])
+				->contain(['Projects', 'Views', 'Types'])
 				->where([
 					//$conditions,
 					'OR' => [
@@ -136,7 +136,7 @@ class ColsController extends AppController
 					]
 				]);
 		}else{
-			$query = $this->Cols->find()->contain(['Projects', 'Views', 'Types', 'Statuses'])->where($conditions);
+			$query = $this->Cols->find()->contain(['Projects', 'Views', 'Types'])->where($conditions);
 		}
 		// ############################# /.QUERY ###########################################
 
@@ -194,7 +194,7 @@ class ColsController extends AppController
 		//));
 
 		try {
-			$col = $this->Cols->get((int) $id, contain: ['Projects', 'Views', 'Types', 'Statuses']);
+			$col = $this->Cols->get((int) $id, contain: ['Projects', 'Views', 'Types', 'Tasks']);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
@@ -249,8 +249,7 @@ class ColsController extends AppController
         $projects = $this->Cols->Projects->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
         $views = $this->Cols->Views->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
         $types = $this->Cols->Types->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
-        $statuses = $this->Cols->Statuses->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'status' => 'asc'])->all();
-        $this->set(compact('col', 'projects', 'views', 'types', 'statuses'));
+        $this->set(compact('col', 'projects', 'views', 'types'));
     }
 
     /**
@@ -305,9 +304,8 @@ class ColsController extends AppController
         $projects = $this->Cols->Projects->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
         $views = $this->Cols->Views->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
         $types = $this->Cols->Types->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
-        $statuses = $this->Cols->Statuses->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'status' => 'asc'])->all();
 		$name = $col->name;
-        $this->set(compact('col', 'projects', 'views', 'types', 'statuses', 'id', 'name'));
+        $this->set(compact('col', 'projects', 'views', 'types', 'id', 'name'));
     }
 
     /**

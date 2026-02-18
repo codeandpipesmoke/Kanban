@@ -15,6 +15,8 @@ use Cake\Http\Exception\NotFoundException;
 /**
  * Colors Model
  *
+ * @property \App\Model\Table\TasksTable&\Cake\ORM\Association\HasMany $Tasks
+ *
  * @method \App\Model\Entity\Color newEmptyEntity()
  * @method \App\Model\Entity\Color newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Color> newEntities(array $data, array $options = [])
@@ -44,10 +46,14 @@ class ColorsTable extends Table
         parent::initialize($config);
 
         $this->setTable('colors');
-        $this->setDisplayField('value');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'color_id',
+        ]);
     }
 
     /**
@@ -59,10 +65,16 @@ class ColorsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('value')
-            ->maxLength('value', 50)
-            ->requirePresence('value', 'create')
-            ->notEmptyString('value');
+            ->scalar('name')
+            ->maxLength('name', 50)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
+            ->scalar('color')
+            ->maxLength('color', 20)
+            ->requirePresence('color', 'create')
+            ->notEmptyString('color');
 
         $validator
             ->integer('pos')

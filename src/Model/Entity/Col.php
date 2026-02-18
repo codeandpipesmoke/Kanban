@@ -16,8 +16,8 @@ use Cake\Http\Exception\NotFoundException;
  * @property int $project_id
  * @property int $view_id
  * @property int $type_id
- * @property int $status_id
- * @property string $header
+ * @property string $name
+ * @property string $status
  * @property bool $visible
  * @property int $pos
  * @property int|null $task_count
@@ -27,7 +27,7 @@ use Cake\Http\Exception\NotFoundException;
  * @property \App\Model\Entity\Project $project
  * @property \App\Model\Entity\View $view
  * @property \App\Model\Entity\Type $type
- * @property \App\Model\Entity\Status $status
+ * @property \App\Model\Entity\Task[] $tasks
  */
 class Col extends Entity
 {
@@ -44,8 +44,8 @@ class Col extends Entity
         'project_id' => true,
         'view_id' => true,
         'type_id' => true,
-        'status_id' => true,
-        'header' => true,
+        'name' => true,
+        'status' => true,
         'visible' => true,
         'pos' => true,
         'task_count' => true,
@@ -54,6 +54,6 @@ class Col extends Entity
         'project' => true,
         'view' => true,
         'type' => true,
-        'status' => true,
+        'tasks' => true,
     ];
 }

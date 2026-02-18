@@ -71,9 +71,16 @@ $config = array_merge($global_config, $local_config);
 											</div>
 <?php } ?>
 											<div class="row"><!-- 2. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Value') ?>:</label>
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Name') ?>:</label>
 												<div class="col-sm-10 p-1">
-													<?= h($color->value) ?>
+													<?= h($color->name) ?>
+
+												</div>
+											</div>
+											<div class="row"><!-- 2. -->
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Color') ?>:</label>
+												<div class="col-sm-10 p-1">
+													<?= h($color->color) ?>
 
 												</div>
 											</div>

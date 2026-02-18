@@ -82,15 +82,21 @@ $config = array_merge($global_config, $local_config);
 											</div>
 <?php } ?>
 											<div class="row"><!-- 1. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Status') ?>:</label>
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Col') ?>:</label>
 												<div class="col-sm-10 p-1 link">
-													<?= $task->hasValue('status') ? $this->Html->link($task->status->status, ['controller' => 'Statuses', 'action' => 'view', $task->status->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+													<?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+												</div>
+											</div>
+											<div class="row"><!-- 1. -->
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Color') ?>:</label>
+												<div class="col-sm-10 p-1 link">
+													<?= $task->hasValue('color') ? $this->Html->link($task->color->name, ['controller' => 'Colors', 'action' => 'view', $task->color->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
 												</div>
 											</div>
 											<div class="row"><!-- 2. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Text') ?>:</label>
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Name') ?>:</label>
 												<div class="col-sm-10 p-1">
-													<?= h($task->text) ?>
+													<?= h($task->name) ?>
 
 												</div>
 											</div>
@@ -222,7 +228,7 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['index_show_id']){ ?>
 													<th class="number id"><?= __('Id') ?></th>
 <?php } ?>
-													<th class="please-change-type value"><?= __('Value') ?></th>
+													<th class="string name"><?= __('Name') ?></th>
 <?php if($config['index_show_pos']){ ?>
 													<th class="number pos"><?= __('Pos') ?></th>
 <?php } ?>
@@ -248,7 +254,7 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['index_show_id']){ ?>
 													<td class="number id" value="<?= $tags->id ?>"><?= h($tags->id) ?></td>
 <?php } ?>
-													<td class="please-change-type value" value="<?= $tags->value ?>"><?= h($tags->value) ?></td>
+													<td class="string name" value="<?= $tags->name ?>"><?= h($tags->name) ?></td>
 <?php if($config['index_show_pos']){ ?>
 													<td class="number pos" value="<?= $tags->pos ?>"><?= h($tags->pos) ?></td>
 <?php } ?>

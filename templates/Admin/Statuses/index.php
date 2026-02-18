@@ -59,6 +59,7 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
+											<th class="string name"><?= $this->Paginator->sort('name') ?></th><!-- H.1. -->
 											<th class="string status"><?= $this->Paginator->sort('status') ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
 											<th class="number pos"><?= $this->Paginator->sort('pos') ?></th>
@@ -101,6 +102,7 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<td class="number id" value="<?= $status->id ?>"><?= h($status->id) ?><a name="<?= $status->id ?>"></a></td>
 <?php } ?>
+											<td class="string name" value="<?= $status->name ?>"><?= h($status->name) ?></td>
 											<td class="string status" value="<?= $status->status ?>"><?= h($status->status) ?></td>
 <?php if($config['show_pos']){ ?>
 											<td class="number pos" value="<?= $status->pos ?>"><?= h($status->pos) ?></td>

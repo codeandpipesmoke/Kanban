@@ -79,9 +79,9 @@ $config = array_merge($global_config, $local_config);
 											</div>
 <?php } ?>
 											<div class="row"><!-- 2. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Value') ?>:</label>
+												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Name') ?>:</label>
 												<div class="col-sm-10 p-1">
-													<?= h($tag->value) ?>
+													<?= h($tag->name) ?>
 
 												</div>
 											</div>
@@ -176,7 +176,7 @@ $config = array_merge($global_config, $local_config);
 													<th class="number id"><?= __('Id') ?></th>
 <?php } ?>
 													<th class="please-change-type status-id"><?= __('Status Id') ?></th>
-													<th class="please-change-type text"><?= __('Text') ?></th>
+													<th class="string name"><?= __('Name') ?></th>
 													<th class="please-change-type description"><?= __('Description') ?></th>
 													<th class="please-change-type priority"><?= __('Priority') ?></th>
 													<th class="please-change-type deleted"><?= __('Deleted') ?></th>
@@ -206,7 +206,7 @@ $config = array_merge($global_config, $local_config);
 													<td class="number id" value="<?= $tasks->id ?>"><?= h($tasks->id) ?></td>
 <?php } ?>
 													<td class="please-change-type status-id" value="<?= $tasks->status_id ?>"><?= h($tasks->status_id) ?></td>
-													<td class="please-change-type text" value="<?= $tasks->text ?>"><?= h($tasks->text) ?></td>
+													<td class="string name" value="<?= $tasks->name ?>"><?= h($tasks->name) ?></td>
 													<td class="please-change-type description" value="<?= $tasks->description ?>"><?= h($tasks->description) ?></td>
 													<td class="please-change-type priority" value="<?= $tasks->priority ?>"><?= h($tasks->priority) ?></td>
 													<td class="please-change-type deleted" value="<?= $tasks->deleted ?>"><?= h($tasks->deleted) ?></td>

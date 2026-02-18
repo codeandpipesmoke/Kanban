@@ -13,7 +13,7 @@ use Cake\Http\Exception\NotFoundException;
  * Tag Entity
  *
  * @property int $id
- * @property string $value
+ * @property string $name
  * @property int $pos
  * @property bool $visible
  * @property int|null $task_count
@@ -34,7 +34,7 @@ class Tag extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'value' => true,
+        'name' => true,
         'pos' => true,
         'visible' => true,
         'task_count' => true,

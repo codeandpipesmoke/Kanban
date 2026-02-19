@@ -18,14 +18,30 @@
 		//'/plugins/kanban/codebase/webix/webix',
 		//'/plugins/kanban/codebase/kanban'
 	]);
+	// #f8f8f8;
 ?>
 
 	<style>
 		.toolbar{
-			background-color: #f8f8f8;
+			background-color: #4980b5;
+			/* x-eltolás | y-eltolás | homályosítás | kiterjedés | szín */
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+			border-bottom: 2px solid #000 !important; /* Opcionális: egy vékony vonal még profibbá teszi */
 		}
+		.webix_secondary .webix_button {
+			background: #296095;
+			color: #eee;
+		}
+		.webix_secondary .webix_button:hover {
+			background: #094075;
+			color: #fff;
+		}
+		.webix_secondary .webix_button:focus {
+			background: #073255;
+			color: #fff;
+		}		
 		.shadow{
-			box-shadow: inset 0 1px 3px #aaa;
+			box-shadow: inset 0 6px 8px #aaa;
 		}
 		.webix_kanban_list_content {
 			border-left: 5px solid lightgray;

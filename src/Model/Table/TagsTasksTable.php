@@ -51,7 +51,10 @@ class TagsTasksTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-
+        $this->addBehavior('CounterCache', [
+            'Tags' => ['task_count'],
+            'Tasks' => ['tag_count'],
+        ]);
         $this->belongsTo('Tags', [
             'foreignKey' => 'tag_id',
             'joinType' => 'INNER',

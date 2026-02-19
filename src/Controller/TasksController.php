@@ -164,10 +164,15 @@ class TasksController extends AppController
     public function update()
     {
 		// ############################# DELETE #############################
+		/*
+			megjegyzés, hogy az N:M kapcsolat táblában lévő adatokat törli, de a commenteket nem.
+			A Commentekhez be kell tenni egy kaszkásolt törlést a modelbe.
+		*/
 		if ($this->request->is('delete')) {
 			// Az érkező JSON adatok beolvasása
 			$jsonData = $this->request->getData();
-			$task = $this->Tasks->get((int) $jsonData['id']);
+			$task = $this->Tasks->get((int) $jsonData['id'], contain: ['Comments', 'Tags']);
+			//debug($task->toArray());
 			//$jsonData['deleted'] = true;
 			$task = $this->Tasks->patchEntity($task, $jsonData);
 			$task->deleted = true;
@@ -181,6 +186,7 @@ class TasksController extends AppController
 				$message = 'Hiba történt a törlés során.';
 				$success = false;
 			}
+			//dd($task->toArray());
 
 			// JSON válasz visszaadása az AJAX hívásnak
 			return $this->response

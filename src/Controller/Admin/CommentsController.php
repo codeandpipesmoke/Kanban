@@ -190,7 +190,7 @@ class CommentsController extends AppController
     public function view($id = null)
     {
 		Configure::write('Theme.admin.config.header_buttons_in_action.view', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.view'), 
-			['back' => true, 'add' => false, 'edit' => true, 'save' => false, 'view' => false, 'delete' => true]
+			['back' => false, 'add' => false, 'edit' => true, 'save' => false, 'view' => false, 'delete' => true]
 		));
 
 		try {
@@ -260,7 +260,7 @@ class CommentsController extends AppController
     public function edit($id = null)
     {
 		Configure::write('Theme.admin.config.header_buttons_in_action.edit', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.edit'), 
-			['back' => false, 'add' => false, 'edit' => false, 'save' => true, 'view' => true, 'delete' => true]
+			['back' => false, 'add' => false, 'edit' => false, 'save' => true, 'view' => false, 'delete' => true]
 		));
 
 		try {
@@ -287,6 +287,8 @@ class CommentsController extends AppController
 			if (!$comment->hasErrors() && $this->Comments->save($comment)) {
 				//$this->Flash->success(__('The comment has been saved.'), ['plugin' => 'Jeffadmin']);
 				$this->Flash->success(__('The save has been: OK'), ['plugin' => 'Jeffadmin']);
+
+				$this->session->write('Layout.Tasks.LastId', $comment->task_id);
 
 				//return $this->redirect(['action' => 'index']);
 				return $this->redirect([

@@ -69,6 +69,8 @@ class TasksTable extends Table
         ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'task_id',
+			'dependent' => true,         // Ha a Task törlődik, törölje a Comments rekordokat is
+			//'cascadeCallbacks' => true,  // Akkor kell, ha a Comment modellben is van afterDelete logika
         ]);
         $this->belongsToMany('Tags', [
             'foreignKey' => 'task_id',

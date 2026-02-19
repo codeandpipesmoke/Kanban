@@ -13,8 +13,8 @@ if($session->check('Layout.Tags.LastId')){
 $global_config = (array) Configure::read('Theme.' . $prefix . '.config.template.index');
 $local_config = [
 	'show_id' 			=> true,
-	'show_pos' 			=> false,
-	'show_counters'		=> false,
+	'show_pos' 			=> true,
+	'show_counters'		=> true,
 	'action_db_click'	=> 'edit',	// none, edit or view
 	// ... more config params in: \Jeffadmin\config\jeffadmin.php
 ];
@@ -109,7 +109,7 @@ $config = array_merge($global_config, $local_config);
 											<td class="boolean visible" value="<?= $tag->visible ?>"><?= h($tag->visible) ?></td>
 <?php } ?>
 <?php if($config['show_counters']){ ?>
-											<td class="number counter task-count" value="<?= $tag->task_count ?>"><?= h($tag->task_count) ?></td><?php } ?>
+											<td class="number counter task-count text-center" value="<?= $tag->task_count ?>"><?= h($tag->task_count) ?></td><?php } ?>
 <?php if($config['show_created'] || $config['show_modified']){ ?>
 											<td class="datetime">
 <?php if($config['show_created']){ ?>

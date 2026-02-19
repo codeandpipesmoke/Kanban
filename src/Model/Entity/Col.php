@@ -23,7 +23,6 @@ use Cake\Http\Exception\NotFoundException;
  * @property \Cake\I18n\DateTime $modified
  *
  * @property \App\Model\Entity\Project $project
- * @property \App\Model\Entity\Type $type
  * @property \App\Model\Entity\Task[] $tasks
  */
 class Col extends Entity
@@ -47,7 +46,6 @@ class Col extends Entity
         'created' => true,
         'modified' => true,
         'project' => true,
-        'type' => true,
         'tasks' => true,
     ];
 }

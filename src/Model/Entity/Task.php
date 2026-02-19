@@ -23,7 +23,7 @@ use Cake\Http\Exception\NotFoundException;
  * @property bool $visible
  * @property int $pos
  * @property int|null $tag_count
- * @property int $comment_count
+ * @property int|null $comment_count
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
@@ -44,6 +44,7 @@ class Task extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'user_id' => true,
         'col_id' => true,
         'color_id' => true,
         'position' => true,

@@ -30,7 +30,6 @@ class ColsTableTest extends TestCase
     protected array $fixtures = [
         'app.Cols',
         'app.Projects',
-        'app.Types',
         'app.Tasks',
     ];
 

@@ -86,7 +86,7 @@ $this->assign('title', __('Edit') . ' ' . __('Comment'));
 
 											<div class="row mb-3">
 												<div class="col-sm-12">
-													<?= $this->Form->control('text', ['id' => 'text', 'label' => false, 'class' => 'summernote', 'empty' => false]); ?>
+													<?= $this->Form->control('text', ['id' => 'text', 'label' => false, 'class' => 'w-100 summernote', 'empty' => false]); ?>
 
 												</div>
 											</div>
@@ -178,7 +178,7 @@ $this->assign('title', __('Edit') . ' ' . __('Comment'));
 
 	jeffAdminInitSelectPicker()
 	jeffAdminInitInputSpinner()
-	jeffAdminInitSummerNote('text', 400, '<?= __("Here you can write the note") ?>...') // Init SummerNote for text.
+	//jeffAdminInitSummerNote('text', 400, '<?= __("Here you can write the note") ?>...') // Init SummerNote for text.
 	//jeffAdminInitICheck('icheckbox_flat-blue');
 
 	$(document).ready( function(){

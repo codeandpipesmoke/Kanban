@@ -59,8 +59,13 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
-											<th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('Pos')) ?></th><!-- H.0. -->
-											<th class="string color-id"><?= $this->Paginator->sort('Colors.pos', __('Color')) ?></th><!-- H.0. -->
+											<?php /* <th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('Pos'), ['sort' => 'Cols.pos', 'direction' => 'asc', 'lock' => false]) */ ?></th><!-- H.0. -->
+											<th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('Pos'), ['lock' => false]) ?></th><!-- H.0. -->
+<?php /*
+['url' => ['?' => ['extra_param' => 'valami']]]
+*/ ?>
+											
+											<th class="string color-id"><?= $this->Paginator->sort('Colors.pos', __('Color'), ['lock' => false]) ?></th><!-- H.0. -->
 											<th class="string name"><?= $this->Paginator->sort('Tasks.name', __('Title')) ?></th><!-- H.1. -->
 											<th class="boolean priority"><?= $this->Paginator->sort('Tasks.priority', __('Priority')) ?></th><!-- H.1. -->
 											<th class="boolean deleted"><?= $this->Paginator->sort('Tasks.deleted', __('Deleted')) ?></th><!-- H.1. -->
@@ -97,7 +102,6 @@ $config = array_merge($global_config, $local_config);
 										<?php foreach ($tasks as $task): ?>
 <?php
 	//dd($task->tag_count);
-	//dd($task->color->color);	//->comments);
 	//$classLastVisited = ' class="last-visited"';	// later...
 	//$classLastVisited = '';
 ?>
@@ -109,7 +113,7 @@ $config = array_merge($global_config, $local_config);
 <?php } ?>
 											<td class="string link col-id" value="<?= $task->col_id ?>">
 												<?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
-												<?= $task->col->pos ?>
+												<?php //= $task->col->pos ?>
 											
 											</td>
 											<td class="string link color-id" value="<?= $task->color_id ?>">
@@ -132,7 +136,37 @@ $config = array_merge($global_config, $local_config);
 } ?>
 
 <?php foreach($task->comments as $comment){ ?>
-												• <?= $comment->text ?><br>
+												• <?= $comment->text ?>
+												
+												• <?= $this->Html->link('módosít', 
+													['controller' => 'Comments', 'action' => 'edit', $comment->id],
+													['escape' => false, 'role' => 'button', 
+														//'class' => 'btn btn-primary btn-sm',
+														//'style' => 'padding-y: 0px;',
+														'data-toggle' => 'tooltip', 
+														'data-placement' => 'top', 
+														'title' => __('Edit this item'),
+														'data-original-title' => __('Edit this item')
+													]) ?> •
+												
+												<?= $this->Form->postLink('', 
+													['controller' => 'Comments', 'action' => 'delete', $comment->id],
+													['class'=>'hide-postlink index-delete-button-class']
+													//['class'=>'hide-postlink']
+													)
+												?>
+												<a href="javascript:;" class="postlink-delete text-danger fw-bold" data-bs-tooltip="tooltip" data-bs-placement="top" title="<?= __("Delete this comment!") ?>" text="<?= h($comment->text) ?>" subText="<?= __("You will not be able to revert this!") ?>" confirmButtonText="<?= __("Yes, delete it!") ?>" cancelButtonText="<?= __("Cancel") ?>">töröl</a>
+
+
+<?php /*												
+												<?= $this->Form->postLink('', ['action' => 'delete', $task->id], ['class'=>'hide-postlink index-delete-button-class']) ?>
+												<a href="javascript:;" class="btn btn-sm btn-danger postlink-delete" data-bs-tooltip="tooltip" data-bs-placement="top" title="<?= __("Delete this record!") ?>" text="<?= h($task->name) ?>" subText="<?= __("You will not be able to revert this!") ?>" confirmButtonText="<?= __("Yes, delete it!") ?>" cancelButtonText="<?= __("Cancel") ?>"><i class="fa fa-minus"></i></a>
+*/ ?>
+												
+												
+
+
+												• <span class="small fst-italic text-muted"><?= h($comment->created) ?></span><br>
 <?php } ?>
 											</td>
 											<td class="boolean priority" value="<?= $task->priority ?>"><?= h($task->priority) ?></td>

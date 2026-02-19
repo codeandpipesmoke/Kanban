@@ -30,6 +30,14 @@
 		.webix_kanban_list_content {
 			border-left: 5px solid lightgray;
 		}
+		.priority .webix_kanban_list_content{
+			background-color: #fff2c1;
+			border-color:  #e0d7b7;
+			border-left-color:  #f5cf3d;
+		}
+		.priority.webix_selected .webix_kanban_list_content{
+			background-color: #fff1a2;
+		}
 	</style>
 </head>
 <body>

@@ -56,7 +56,7 @@ class TasksController extends AppController
      */
     public function index($project = 'kanbanlist')
     {
-		$this->set('currentUserId', 2);
+		$this->set('currentUserId', 1);
 		
         $cols = $this->Cols->find()->select(['id', 'header' => 'Cols.name', 'status'])
 			->where(['Cols.visible' => true])
@@ -147,6 +147,7 @@ class TasksController extends AppController
 				'text' => $task->name,
 				'tags' => $tags,
 				'comments' => $comments,
+				'$css' => $task->priority ? 'priority' : '',
 			];
 		}
 		$tasks = json_encode($tasks_array, JSON_UNESCAPED_UNICODE);	// Dekódoljuk, majd újra kódoljuk ékezetekkel, de szóközök nélkül
@@ -212,7 +213,7 @@ class TasksController extends AppController
 			$jsonData['tags'] = ['_ids' => $jsonData['tags']];
 		}
 		
-		unset($jsonData['user_id']);
+		//unset($jsonData['user_id']);
 		//unset($jsonData['webix_move_index']);
 		//unset($jsonData['webix_move_parent']);
 		//webix_move_id
@@ -239,11 +240,16 @@ class TasksController extends AppController
 			$task->position = $jsonData["webix_move_index"];
 		}
 			
+		if(isset($jsonData['user_id'])){
+			$task->user_id = $jsonData['user_id'];
+		}
+			
+			
 		// Save Task
 		$message = 'Sikeres mentés!';
-		$success = true;
-		if ($this->Tasks->save($task)) {
-			
+		$success = true;		
+		//dd($task->getErrors());		
+		if ($this->Tasks->save($task)) {			
 			// Save Comments			
 			foreach($jsonData['comments'] as $jsonComment){
 				unset($jsonComment['date']);

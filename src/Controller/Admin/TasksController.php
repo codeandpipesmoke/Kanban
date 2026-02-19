@@ -102,11 +102,13 @@ class TasksController extends AppController
 
 		$this->paginate['Tasks']['page'] 	= $page;
 		
-		//if($sort !== null && $direction !== null){
-		//	$this->paginate['Tasks']['order'] 	= [$sort => $direction];
-		//}else{
-		//	$this->paginate['Tasks']['order'] 	= $this->defaultOrder;
-		//}
+		if($sort !== null && $direction !== null){
+			$this->paginate['Tasks']['order'] 	= [$sort => $direction];
+		}else{
+			$this->paginate['Tasks']['order'] 	= $this->defaultOrder;
+		}
+
+		//dd($this->paginate['Tasks']['order']);
 		
 		// ############################# /.SORT ORDER & PAGE ###############################
 
@@ -127,7 +129,7 @@ class TasksController extends AppController
 			$showSearchBar	 = true;
 			$query = $this->Tasks->find()
 				//->leftJoinWith('Cols')
-				->contain(['Cols', 'Colors', 'Comments', 'Tags'])
+				->contain(['Cols', 'Colors', 'Comments' => ['sort' => ['Comments.created' => 'asc']], 'Tags' => ['sort' => 'Tags.name']])
 				->where([
 					//$conditions,
 					'OR' => [
@@ -139,11 +141,17 @@ class TasksController extends AppController
 		}else{
 			$query = $this->Tasks->find()
 				//->leftJoinWith('Cols')
-				->contain(['Cols', 'Colors', 'Comments', 'Tags'])->where($conditions);
+				->contain(['Cols', 'Colors', 'Comments' => ['sort' => ['Comments.created' => 'asc']], 'Tags' => ['sort' => 'Tags.name']])->where($conditions);
 		}
-		if($sort !== null && $direction !== null){
-			$query->orderBy([$sort => $direction]);
-		}
+		
+		//if($sort !== null && $direction !== null){
+		//	$query->orderBy([$sort => $direction]);
+		//}
+
+		//dd($query->toArray());
+		
+		//debug($direction);
+		//dd($sort);
 		// ############################# /.QUERY ###########################################
 
 
@@ -151,6 +159,7 @@ class TasksController extends AppController
 		try {
 			$this->paginate['Tasks']['limit'] = $this->config['paginate_limit'];
 			$this->paginate['Tasks']['maxLimit'] = $this->config['paginate_limit'];
+			$this->paginate['Tasks']['sortableFields'] = ['Cols.pos', 'Colors.pos', 'Tasks.name', 'Tasks.priority', 'Tasks.deleted', 'Tasks.visible', 'Tasks.created', 'Tasks.modified'];
 			$tasks = $this->paginate($query);
 		} catch (NotFoundException $e) {
 			// Do something here like redirecting to first or last page.
@@ -174,6 +183,7 @@ class TasksController extends AppController
 				]);
 			}
 		}
+		
 		// ############################# /.PAGINATE ##########################################
 
         $this->set('search', $search);

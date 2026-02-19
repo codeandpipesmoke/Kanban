@@ -86,6 +86,10 @@ class TasksTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->nonNegativeInteger('user_id')
+            ->notEmptyString('user_id');
+
+        $validator
             ->nonNegativeInteger('col_id')
             ->notEmptyString('col_id');
 
@@ -129,8 +133,7 @@ class TasksTable extends Table
 
         $validator
             ->nonNegativeInteger('comment_count')
-            ->requirePresence('comment_count', 'create')
-            ->notEmptyString('comment_count');
+            ->allowEmptyString('comment_count');
 
         return $validator;
     }

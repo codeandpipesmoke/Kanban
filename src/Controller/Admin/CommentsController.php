@@ -260,7 +260,7 @@ class CommentsController extends AppController
     public function edit($id = null)
     {
 		Configure::write('Theme.admin.config.header_buttons_in_action.edit', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.edit'), 
-			['back' => true, 'add' => false, 'edit' => false, 'save' => true, 'view' => true, 'delete' => true]
+			['back' => false, 'add' => false, 'edit' => false, 'save' => true, 'view' => true, 'delete' => true]
 		));
 
 		try {
@@ -290,7 +290,7 @@ class CommentsController extends AppController
 
 				//return $this->redirect(['action' => 'index']);
 				return $this->redirect([
-					'controller' => $this->controller,
+					'controller' => 'Tasks',		//$this->controller,
 					'action' => 'index',
 					'#' => $comment->id
 				]);
@@ -331,6 +331,6 @@ class CommentsController extends AppController
 			$this->Flash->error(__('The has been deleted. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
 		}
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Tasks', 'action' => 'index']);
     }
 }

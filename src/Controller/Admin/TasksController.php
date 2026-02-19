@@ -102,11 +102,11 @@ class TasksController extends AppController
 
 		$this->paginate['Tasks']['page'] 	= $page;
 		
-		if($sort !== null && $direction !== null){
-			$this->paginate['Tasks']['order'] 	= [$sort => $direction];
-		}else{
-			$this->paginate['Tasks']['order'] 	= $this->defaultOrder;
-		}
+		//if($sort !== null && $direction !== null){
+		//	$this->paginate['Tasks']['order'] 	= [$sort => $direction];
+		//}else{
+		//	$this->paginate['Tasks']['order'] 	= $this->defaultOrder;
+		//}
 		
 		// ############################# /.SORT ORDER & PAGE ###############################
 
@@ -142,7 +142,7 @@ class TasksController extends AppController
 				->contain(['Cols', 'Colors', 'Comments', 'Tags'])->where($conditions);
 		}
 		if($sort !== null && $direction !== null){
-			$query->orderBy($sort);
+			$query->orderBy([$sort => $direction]);
 		}
 		// ############################# /.QUERY ###########################################
 

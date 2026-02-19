@@ -59,11 +59,11 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
-											<th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('pos')) ?></th><!-- H.0. -->
-											<th class="string color-id"><?= $this->Paginator->sort('Tasks.color_id') ?></th><!-- H.0. -->
-											<th class="string name"><?= $this->Paginator->sort('Tasks.name') ?></th><!-- H.1. -->
-											<th class="boolean priority"><?= $this->Paginator->sort('Tasks.priority') ?></th><!-- H.1. -->
-											<th class="boolean deleted"><?= $this->Paginator->sort('Tasks.deleted') ?></th><!-- H.1. -->
+											<th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('Pos')) ?></th><!-- H.0. -->
+											<th class="string color-id"><?= $this->Paginator->sort('Colors.pos', __('Color')) ?></th><!-- H.0. -->
+											<th class="string name"><?= $this->Paginator->sort('Tasks.name', __('Title')) ?></th><!-- H.1. -->
+											<th class="boolean priority"><?= $this->Paginator->sort('Tasks.priority', __('Priority')) ?></th><!-- H.1. -->
+											<th class="boolean deleted"><?= $this->Paginator->sort('Tasks.deleted', __('Deleted')) ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
 											<th class="number pos"><?= $this->Paginator->sort('pos') ?></th>
 <?php } ?>

@@ -26,6 +26,7 @@ class TasksFixture extends TestFixture
                 'id' => 1,
                 'col_id' => 1,
                 'color_id' => 1,
+                'position' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'priority' => 1,
@@ -33,8 +34,9 @@ class TasksFixture extends TestFixture
                 'visible' => 1,
                 'pos' => 1,
                 'tag_count' => 1,
-                'created' => '2026-02-18 14:10:08',
-                'modified' => '2026-02-18 14:10:08',
+                'comment_count' => 1,
+                'created' => '2026-02-19 09:52:36',
+                'modified' => '2026-02-19 09:52:36',
             ],
         ];
         parent::init();

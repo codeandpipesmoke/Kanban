@@ -4,23 +4,23 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 
-use App\Model\Table\ColsTable;
+use App\Model\Table\CommentsTable;
 use Cake\TestSuite\TestCase;
 use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
 
 
 /**
- * App\Model\Table\ColsTable Test Case
+ * App\Model\Table\CommentsTable Test Case
  */
-class ColsTableTest extends TestCase
+class CommentsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ColsTable
+     * @var \App\Model\Table\CommentsTable
      */
-    protected $Cols;
+    protected $Comments;
 
     /**
      * Fixtures
@@ -28,9 +28,7 @@ class ColsTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'app.Cols',
-        'app.Projects',
-        'app.Types',
+        'app.Comments',
         'app.Tasks',
     ];
 
@@ -42,8 +40,8 @@ class ColsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Cols') ? [] : ['className' => ColsTable::class];
-        $this->Cols = $this->getTableLocator()->get('Cols', $config);
+        $config = $this->getTableLocator()->exists('Comments') ? [] : ['className' => CommentsTable::class];
+        $this->Comments = $this->getTableLocator()->get('Comments', $config);
     }
 
     /**
@@ -53,7 +51,7 @@ class ColsTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Cols);
+        unset($this->Comments);
 
         parent::tearDown();
     }
@@ -62,7 +60,7 @@ class ColsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @link \App\Model\Table\ColsTable::validationDefault()
+     * @link \App\Model\Table\CommentsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -73,7 +71,7 @@ class ColsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @link \App\Model\Table\ColsTable::buildRules()
+     * @link \App\Model\Table\CommentsTable::buildRules()
      */
     public function testBuildRules(): void
     {

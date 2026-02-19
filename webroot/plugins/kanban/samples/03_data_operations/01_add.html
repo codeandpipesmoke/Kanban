@@ -20,30 +20,8 @@
 </head>
 <body>
 <script type="text/javascript">
-	var tags_set = [
-		{id:1, value:"Adatbázis"},
-		{id:2, value:"Képújság"},
-		{id:3, value:"Web"},
-		{id:4, value:"WinKtv"},
-	];
-
 	webix.ready(function(){
 		webix.CustomScroll.init();
-
-		function onAfterDrop(dragContext,e,list){
-
-			// item id
-			var item =this.getItem(dragContext.start);
-
-			// if we move an item from one list to another
-			if(dragContext.from != dragContext.to){
-				var status = dragContext.to.config.status;
-				// show a message with new status and order
-				webix.message("Item '"+item.text+"' was moved into '"+status+"' column to the "+item.$index +" position");
-			}
-			else
-				webix.message("Item '"+item.text+"' was moved to the "+item.$index +" position");
-		}
 
 		webix.ui({
 			rows:[
@@ -52,7 +30,7 @@
 					borderless: true,
 					paddingY:7,
 					paddingX:10,
-					margin: 7,					
+					margin: 7,
 					cols:[
 						{ view: "label", label: "You can add and remove cards in Kanban Board"},
 						{ view: "button", type: "danger", label: "Remove selected", width: 150, click:() => {
@@ -68,13 +46,7 @@
 					]
 				},
 				{
-					//view:"kanban", id: "myBoard",
-					view:"kanban",
-					id: "myBoard",
-					type: "wide",
-					on:{
-						onListAfterDrop: onAfterDrop
-					},
+					view:"kanban", id: "myBoard",
 					cols:[
 						{ header:"Backlog",
 							body:{ view:"kanbanlist", status:"new" }},

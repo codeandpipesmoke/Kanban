@@ -12,7 +12,7 @@ if($session->check('Layout.Tasks.LastId')){
 
 $global_config = (array) Configure::read('Theme.' . $prefix . '.config.template.index');
 $local_config = [
-	'show_id' 			=> true,
+	'show_id' 			=> false,
 	'show_pos' 			=> false,
 	'show_counters'		=> false,
 	'action_db_click'	=> 'edit',	// none, edit or view
@@ -59,11 +59,11 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
-											<th class="string col-id"><?= $this->Paginator->sort('col_id') ?></th><!-- H.0. -->
-											<th class="string color-id"><?= $this->Paginator->sort('color_id') ?></th><!-- H.0. -->
-											<th class="string name"><?= $this->Paginator->sort('name') ?></th><!-- H.1. -->
-											<th class="boolean priority"><?= $this->Paginator->sort('priority') ?></th><!-- H.1. -->
-											<th class="boolean deleted"><?= $this->Paginator->sort('deleted') ?></th><!-- H.1. -->
+											<th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('pos')) ?></th><!-- H.0. -->
+											<th class="string color-id"><?= $this->Paginator->sort('Tasks.color_id') ?></th><!-- H.0. -->
+											<th class="string name"><?= $this->Paginator->sort('Tasks.name') ?></th><!-- H.1. -->
+											<th class="boolean priority"><?= $this->Paginator->sort('Tasks.priority') ?></th><!-- H.1. -->
+											<th class="boolean deleted"><?= $this->Paginator->sort('Tasks.deleted') ?></th><!-- H.1. -->
 <?php if($config['show_pos']){ ?>
 											<th class="number pos"><?= $this->Paginator->sort('pos') ?></th>
 <?php } ?>
@@ -96,6 +96,8 @@ $config = array_merge($global_config, $local_config);
 									<tbody>
 										<?php foreach ($tasks as $task): ?>
 <?php
+	//dd($task->tag_count);
+	//dd($task->color->color);	//->comments);
 	//$classLastVisited = ' class="last-visited"';	// later...
 	//$classLastVisited = '';
 ?>
@@ -105,9 +107,34 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<td class="number id" value="<?= $task->id ?>"><?= h($task->id) ?><a name="<?= $task->id ?>"></a></td>
 <?php } ?>
-											<td class="string link col-id" value="<?= $task->col_id ?>"><?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string link color-id" value="<?= $task->color_id ?>"><?= $task->hasValue('color') ? $this->Html->link($task->color->name, ['controller' => 'Colors', 'action' => 'view', $task->color->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string name" value="<?= $task->name ?>"><?= h($task->name) ?></td>
+											<td class="string link col-id" value="<?= $task->col_id ?>">
+												<?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+												<?= $task->col->pos ?>
+											
+											</td>
+											<td class="string link color-id" value="<?= $task->color_id ?>">
+												<?= $task->hasValue('color') ? $this->Html->link('<div style="background-color: ' . $task->color->color . '; width: 24px; height: 24px; margin-right: 5px; float: left;"></div>' . $task->color->name, ['controller' => 'Colors', 'action' => 'view', $task->color->id], ['escape' => false]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+											</td>
+											<td class="string name" value="<?= $task->name ?>">
+												<b><?= h($task->name) ?></b>
+<?php if($task->tag_count > 0){
+												echo "<br>\n";
+	$tags = '';
+	foreach($task->tags as $tag){
+		$tags .= $tag->name . ', ';									
+	}
+	$tags = substr($tags, 0, -2);
+												echo "<span style='color: green;'>[" . $tags . "]</span>";
+} ?>
+
+<?php if(count($task->comments) > 0){
+												echo "<br>\n";
+} ?>
+
+<?php foreach($task->comments as $comment){ ?>
+												• <?= $comment->text ?><br>
+<?php } ?>
+											</td>
 											<td class="boolean priority" value="<?= $task->priority ?>"><?= h($task->priority) ?></td>
 											<td class="boolean deleted" value="<?= $task->deleted ?>"><?= h($task->deleted) ?></td>
 <?php if($config['show_pos']){ ?>

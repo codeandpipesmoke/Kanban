@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller\Admin;
 
 
-use App\Controller\Admin\ColsController;
+use App\Controller\Admin\CommentsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 use Cake\Core\Configure;
@@ -12,11 +12,11 @@ use Cake\Http\Exception\NotFoundException;
 
 
 /**
- * App\Controller\Admin\ColsController Test Case
+ * App\Controller\Admin\CommentsController Test Case
  *
- * @link \App\Controller\Admin\ColsController
+ * @link \App\Controller\Admin\CommentsController
  */
-class ColsControllerTest extends TestCase
+class CommentsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -26,8 +26,7 @@ class ColsControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'app.Cols',
-        'app.Projects',
+        'app.Comments',
         'app.Tasks',
     ];
 
@@ -35,7 +34,7 @@ class ColsControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @link \App\Controller\Admin\ColsController::index()
+     * @link \App\Controller\Admin\CommentsController::index()
      */
     public function testIndex(): void
     {
@@ -46,7 +45,7 @@ class ColsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @link \App\Controller\Admin\ColsController::view()
+     * @link \App\Controller\Admin\CommentsController::view()
      */
     public function testView(): void
     {
@@ -57,7 +56,7 @@ class ColsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @link \App\Controller\Admin\ColsController::add()
+     * @link \App\Controller\Admin\CommentsController::add()
      */
     public function testAdd(): void
     {
@@ -68,7 +67,7 @@ class ColsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @link \App\Controller\Admin\ColsController::edit()
+     * @link \App\Controller\Admin\CommentsController::edit()
      */
     public function testEdit(): void
     {
@@ -79,7 +78,7 @@ class ColsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @link \App\Controller\Admin\ColsController::delete()
+     * @link \App\Controller\Admin\CommentsController::delete()
      */
     public function testDelete(): void
     {

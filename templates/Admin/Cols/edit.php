@@ -3,8 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Col $col
  * @var string[]|\Cake\Collection\CollectionInterface $projects
- * @var string[]|\Cake\Collection\CollectionInterface $views
- * @var string[]|\Cake\Collection\CollectionInterface $types
  */
 ?>
 <?php
@@ -67,24 +65,6 @@ $this->assign('title', __('Edit') . ' ' . __('Col'));
 												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="project-id"><?= __('Project Id') ?>:</label>
 												<div class="col-md-4">
 													<?= $this->Form->control('project_id', ['options' => $projects, 'placeholder' => __('Project Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
-
-												</div>
-											</div>
-
-											<!-- 1. SELECT: view_id: integer  required -->
-											<div class="mb-3 form-group row select required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="view-id"><?= __('View Id') ?>:</label>
-												<div class="col-md-4">
-													<?= $this->Form->control('view_id', ['options' => $views, 'placeholder' => __('View Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
-
-												</div>
-											</div>
-
-											<!-- 1. SELECT: type_id: integer  required -->
-											<div class="mb-3 form-group row select required">
-												<label class="col-form-label col-md-2 pt-1 text-start text-md-end required" for="type-id"><?= __('Type Id') ?>:</label>
-												<div class="col-md-4">
-													<?= $this->Form->control('type_id', ['options' => $types, 'placeholder' => __('Type Id'), 'class' => 'form-control select2', 'data-live-search' => false, 'data-container' => 'body', 'data-size' => '6', 'empty' => false]);	?>
 
 												</div>
 											</div>

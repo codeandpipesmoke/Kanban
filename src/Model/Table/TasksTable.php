@@ -17,6 +17,7 @@ use Cake\Http\Exception\NotFoundException;
  *
  * @property \App\Model\Table\ColsTable&\Cake\ORM\Association\BelongsTo $Cols
  * @property \App\Model\Table\ColorsTable&\Cake\ORM\Association\BelongsTo $Colors
+ * @property \App\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
  *
  * @method \App\Model\Entity\Task newEmptyEntity()
@@ -66,6 +67,9 @@ class TasksTable extends Table
             'foreignKey' => 'color_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('Comments', [
+            'foreignKey' => 'task_id',
+        ]);
         $this->belongsToMany('Tags', [
             'foreignKey' => 'task_id',
             'targetForeignKey' => 'tag_id',
@@ -88,6 +92,10 @@ class TasksTable extends Table
         $validator
             ->nonNegativeInteger('color_id')
             ->notEmptyString('color_id');
+
+        $validator
+            ->integer('position')
+            ->allowEmptyString('position');
 
         $validator
             ->scalar('name')
@@ -118,6 +126,11 @@ class TasksTable extends Table
         $validator
             ->nonNegativeInteger('tag_count')
             ->allowEmptyString('tag_count');
+
+        $validator
+            ->nonNegativeInteger('comment_count')
+            ->requirePresence('comment_count', 'create')
+            ->notEmptyString('comment_count');
 
         return $validator;
     }

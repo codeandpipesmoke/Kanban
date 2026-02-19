@@ -3,6 +3,12 @@
 
 	const apiRoot = "/tasks";
 
+	const users_set = [
+		{id:1, value:"Varga Zsolt #1", image:"/img/profiles/1.png"},
+		{id:2, value:"Varga Zsolt #2", image:"/img/profiles/2.png"},
+		{id:3, value:"Varga Zsolt #3", image:"/img/profiles/3.png"}
+	];
+
 	function remove(){
 		var id = $$("myBoard").getSelectedId();
 		if(!id){
@@ -34,11 +40,11 @@
 				{
 					view:"kanban",
 					id: "myBoard",
-
 					cols: <?= $cols ?>,
 					tags: <?= $tags ?>,
 					colors: <?= $colors ?>,
 					data: <?= $data ?>,
+					comments: {currentUser:<?= $currentUserId ?>},
 					
 					//url: apiRoot + "/tasks/index",
 					save:{

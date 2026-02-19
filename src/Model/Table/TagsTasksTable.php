@@ -60,6 +60,12 @@ class TagsTasksTable extends Table
             'foreignKey' => 'task_id',
             'joinType' => 'INNER',
         ]);
+
+		// Itt állítjuk be a számlálót
+		$this->addBehavior('CounterCache', [
+			'Tags' => ['task_count'],	// Ez a mező frissül a 'tags' táblában
+			'Tasks' => ['tag_count'],	// Ez a mező frissül a 'tasks' táblában
+		]);
     }
 
     /**

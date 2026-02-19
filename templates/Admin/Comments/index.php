@@ -1,33 +1,33 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Col> $cols
+ * @var iterable<\App\Model\Entity\Comment> $comments
  */
 use Cake\Core\Configure;
 
-$layoutColsLastId = -1;
-if($session->check('Layout.Cols.LastId')){
-	$layoutColsLastId = $session->read('Layout.Cols.LastId');
+$layoutCommentsLastId = -1;
+if($session->check('Layout.Comments.LastId')){
+	$layoutCommentsLastId = $session->read('Layout.Comments.LastId');
 }
 
 $global_config = (array) Configure::read('Theme.' . $prefix . '.config.template.index');
 $local_config = [
-	'show_id' 			=> true,
-	'show_pos' 			=> true,
-	'show_counters'		=> true,
+	'show_id' 			=> false,
+	'show_pos' 			=> false,
+	'show_counters'		=> false,
 	'action_db_click'	=> 'edit',	// none, edit or view
 	// ... more config params in: \Jeffadmin\config\jeffadmin.php
 ];
 $config = array_merge($global_config, $local_config);
 ?>
-				<div class="cols index row">
+				<div class="comments index row">
 						
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 						<div class="card">
 							<div class="card-header">
 							
 								<div class="float-start">
-									<h3><i id="card-icon" class="fa fa-table fa-spin"></i> <?= __('Table') ?>: <?= __('Cols') ?></h3>
+									<h3><i id="card-icon" class="fa fa-table fa-spin"></i> <?= __('Table') ?>: <?= __('Comments') ?></h3>
 									<div><?php
 										if($config['action_db_click'] == 'edit'){
 											echo __('Double clik to edit row');
@@ -59,17 +59,8 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
-											<th class="string project-id"><?= $this->Paginator->sort('project_id') ?></th><!-- H.0. -->
-											<th class="string name"><?= $this->Paginator->sort('name') ?></th><!-- H.1. -->
-											<th class="string status"><?= $this->Paginator->sort('status') ?></th><!-- H.1. -->
-<?php if($config['show_pos']){ ?>
-											<th class="number pos"><?= $this->Paginator->sort('pos') ?></th>
-<?php } ?>
-<?php if($config['show_visible']){ ?>
-											<th class="boolean visible"><?= $this->Paginator->sort('visible') ?></th>
-<?php } ?>
-<?php if($config['show_counters']){ ?>
-											<th class="number counter task_count"><?= $this->Paginator->sort('task_count') ?></th><?php } ?>
+											<th class="string task-id"><?= $this->Paginator->sort('task_id') ?></th><!-- H.0. -->
+											<th class="integer user-id"><?= $this->Paginator->sort('user_id') ?></th><!-- H.3. -->
 <?php if($config['show_created'] || $config['show_modified']){ ?>
 
 											<th class="datetime created modified">
@@ -92,38 +83,32 @@ $config = array_merge($global_config, $local_config);
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach ($cols as $col): ?>
+										<?php foreach ($comments as $comment): ?>
 <?php
 	//$classLastVisited = ' class="last-visited"';	// later...
 	//$classLastVisited = '';
 ?>
 
-										<tr row-id="<?= $col->id ?>"<?php if($col->id == $layoutColsLastId){ echo 'class="table-tr-last-id"'; } ?> prefix="<?= $prefix ?>" controller="<?= $controller ?>" action="<?= $action ?>" aria-expanded="true">
-											<td class="row-id-anchor" value="<?= $col->id ?>"><a name="<?= $col->id ?>" class="anchor"></a></td>
+										<tr row-id="<?= $comment->id ?>"<?php if($comment->id == $layoutCommentsLastId){ echo 'class="table-tr-last-id"'; } ?> prefix="<?= $prefix ?>" controller="<?= $controller ?>" action="<?= $action ?>" aria-expanded="true">
+											<td class="row-id-anchor" value="<?= $comment->id ?>"><a name="<?= $comment->id ?>" class="anchor"></a></td>
 <?php if($config['show_id']){ ?>
-											<td class="number id" value="<?= $col->id ?>"><?= h($col->id) ?><a name="<?= $col->id ?>"></a></td>
+											<td class="number id" value="<?= $comment->id ?>"><?= h($comment->id) ?><a name="<?= $comment->id ?>"></a></td>
 <?php } ?>
-											<td class="string link project-id" value="<?= $col->project_id ?>"><?= $col->hasValue('project') ? $this->Html->link($col->project->name, ['controller' => 'Projects', 'action' => 'view', $col->project->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span></td>
-											<td class="string name" value="<?= $col->name ?>"><?= h($col->name) ?></td>
-											<td class="string status" value="<?= $col->status ?>"><?= h($col->status) ?></td>
-<?php if($config['show_pos']){ ?>
-											<td class="number pos" value="<?= $col->pos ?>"><?= h($col->pos) ?></td>
-<?php } ?>
-<?php if($config['show_visible']){ ?>
-											<td class="boolean visible" value="<?= $col->visible ?>"><?= h($col->visible) ?></td>
-<?php } ?>
-<?php if($config['show_counters']){ ?>
-											<td class="number counter task-count" value="<?= $col->task_count ?>"><?= h($col->task_count) ?></td><?php } ?>
+											<td class="string link task-id" value="<?= $comment->task_id ?>">
+												<?= $comment->hasValue('task') ? $this->Html->link($comment->task->name, ['controller' => 'Tasks', 'action' => 'view', $comment->task->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span><br>
+												<span class="fw-normal"><?= h($comment->text) ?></span>
+											</td>
+											<td class="integer user-id" value="<?= $comment->user_id ?>"><?= $this->Number->format($comment->user_id, ['places' => 0, 'precision' => 0, 'before' => '', 'after' => '']) ?></td>
 <?php if($config['show_created'] || $config['show_modified']){ ?>
 											<td class="datetime">
 <?php if($config['show_created']){ ?>
-												<span class="fw-bold"><?= h($col->created) ?></span>
+												<span class="fw-bold"><?= h($comment->created) ?></span>
 <?php } ?>
 <?php if($config['show_created'] && $config['show_modified']){ ?>
 												<br>
 <?php } ?>
 <?php if($config['show_modified']){ ?>
-												<span class="fw-normal"><?= h($col->modified) ?></span>
+												<span class="fw-normal"><?= h($comment->modified) ?></span>
 <?php } ?>
 											</td>
 <?php } ?>
@@ -131,16 +116,16 @@ $config = array_merge($global_config, $local_config);
 
 											<td class="actions">
 <?php if($config['show_button_view']){ ?>
-												<?= $this->Html->link('<i class="fa fa-eye"></i>', ['action' => 'view', $col->id], ['escape' => false, 'role' => 'button', 'class' => 'btn btn-warning btn-sm', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => __('View this item'), 'data-original-title' => __('View this item')]) ?>
+												<?= $this->Html->link('<i class="fa fa-eye"></i>', ['action' => 'view', $comment->id], ['escape' => false, 'role' => 'button', 'class' => 'btn btn-warning btn-sm', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => __('View this item'), 'data-original-title' => __('View this item')]) ?>
 <?php } ?>
 
 <?php if($config['show_button_edit']){ ?>
-												<?= $this->Html->link('<i class="fa fa-edit"></i>', ['action' => 'edit', $col->id], ['escape' => false, 'role' => 'button', 'class' => 'btn btn-primary btn-sm', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => __('Edit this item'), 'data-original-title' => __('Edit this item')]) ?>
+												<?= $this->Html->link('<i class="fa fa-edit"></i>', ['action' => 'edit', $comment->id], ['escape' => false, 'role' => 'button', 'class' => 'btn btn-primary btn-sm', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => __('Edit this item'), 'data-original-title' => __('Edit this item')]) ?>
 <?php } ?>
 
 <?php if($config['show_button_delete']){ ?>
-												<?= $this->Form->postLink('', ['action' => 'delete', $col->id], ['class'=>'hide-postlink index-delete-button-class']) ?>
-												<a href="javascript:;" class="btn btn-sm btn-danger postlink-delete" data-bs-tooltip="tooltip" data-bs-placement="top" title="<?= __("Delete this record!") ?>" text="<?= h($col->name) ?>" subText="<?= __("You will not be able to revert this!") ?>" confirmButtonText="<?= __("Yes, delete it!") ?>" cancelButtonText="<?= __("Cancel") ?>"><i class="fa fa-minus"></i></a>
+												<?= $this->Form->postLink('', ['action' => 'delete', $comment->id], ['class'=>'hide-postlink index-delete-button-class']) ?>
+												<a href="javascript:;" class="btn btn-sm btn-danger postlink-delete" data-bs-tooltip="tooltip" data-bs-placement="top" title="<?= __("Delete this record!") ?>" text="<?= h($comment->name) ?>" subText="<?= __("You will not be able to revert this!") ?>" confirmButtonText="<?= __("Yes, delete it!") ?>" cancelButtonText="<?= __("Cancel") ?>"><i class="fa fa-minus"></i></a>
 
 <?php } ?>
 

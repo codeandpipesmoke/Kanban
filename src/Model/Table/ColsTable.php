@@ -16,8 +16,6 @@ use Cake\Http\Exception\NotFoundException;
  * Cols Model
  *
  * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
- * @property \App\Model\Table\ViewsTable&\Cake\ORM\Association\BelongsTo $Views
- * @property \App\Model\Table\TypesTable&\Cake\ORM\Association\BelongsTo $Types
  * @property \App\Model\Table\TasksTable&\Cake\ORM\Association\HasMany $Tasks
  *
  * @method \App\Model\Entity\Col newEmptyEntity()
@@ -56,19 +54,10 @@ class ColsTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('CounterCache', [
             'Projects' => ['col_count'],
-            'Views' => ['col_count'],
         ]);
 
         $this->belongsTo('Projects', [
             'foreignKey' => 'project_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Views', [
-            'foreignKey' => 'view_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Types', [
-            'foreignKey' => 'type_id',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Tasks', [
@@ -87,14 +76,6 @@ class ColsTable extends Table
         $validator
             ->integer('project_id')
             ->notEmptyString('project_id');
-
-        $validator
-            ->nonNegativeInteger('view_id')
-            ->notEmptyString('view_id');
-
-        $validator
-            ->nonNegativeInteger('type_id')
-            ->notEmptyString('type_id');
 
         $validator
             ->scalar('name')
@@ -133,8 +114,6 @@ class ColsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['project_id'], 'Projects'), ['errorField' => '0']);
-        $rules->add($rules->existsIn(['view_id'], 'Views'), ['errorField' => '1']);
-        $rules->add($rules->existsIn(['type_id'], 'Types'), ['errorField' => '2']);
 
         return $rules;
     }

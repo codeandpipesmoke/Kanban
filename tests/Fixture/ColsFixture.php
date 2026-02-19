@@ -25,15 +25,13 @@ class ColsFixture extends TestFixture
             [
                 'id' => 1,
                 'project_id' => 1,
-                'view_id' => 1,
-                'type_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'status' => 'Lorem ipsum dolor sit amet',
                 'visible' => 1,
                 'pos' => 1,
                 'task_count' => 1,
-                'created' => '2026-02-18 14:10:08',
-                'modified' => '2026-02-18 14:10:08',
+                'created' => '2026-02-18 14:56:59',
+                'modified' => '2026-02-18 14:56:59',
             ],
         ];
         parent::init();

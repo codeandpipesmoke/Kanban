@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\I18n\DateTime;
 
 /**
  * Tasks Controller
@@ -13,6 +14,7 @@ class TasksController extends AppController
 	private $Cols 		= null;
 	private $Colors 	= null;
 	private $Tags 		= null;
+	private $Comments	= null;
 	
 //	public function viewClasses(): array
 //    {
@@ -36,7 +38,7 @@ class TasksController extends AppController
 		$this->Cols = $this->fetchTable('Cols');		
 		$this->Colors = $this->fetchTable('Colors');
 		$this->Tags = $this->fetchTable('Tags');
-
+		$this->Comments = $this->fetchTable('Comments');
         //$this->loadComponent('Flash');
 	
         /*
@@ -54,9 +56,9 @@ class TasksController extends AppController
      */
     public function index($project = 'kanbanlist')
     {
-        $cols = $this->Cols->find()->select(['id', 'header' => 'Cols.name', 'view' => 'Views.name', 'status', 'type' => 'Types.name'])
-			->contain(['Views', 'Types'])
-			//->where(['views.name' => $project])
+		$this->set('currentUserId', 2);
+		
+        $cols = $this->Cols->find()->select(['id', 'header' => 'Cols.name', 'status'])
 			->where(['Cols.visible' => true])
 			->orderBy(['Cols.pos' => 'asc', 'Cols.name' => 'asc'])
 			;
@@ -66,14 +68,14 @@ class TasksController extends AppController
 			$col_array[] = [
 				'header' => $col->header,
 				'body' => [
-					'view' => $col->view,
 					'status' => $col->status,
-					'type' => $col->type,
+					'view' => 'kanbanlist',
+					'type' => 'tasks',
 				]
 			];
 		}
-		$cols = json_encode($col_array, JSON_UNESCAPED_UNICODE);	// Dekódoljuk, majd újra kódoljuk ékezetekkel, de szóközök nélkül
-		$cols = preg_replace('/"([^"]+)":/', '$1:', $cols); // Eltávolítjuk az idézőjeleket a kulcsok mellől (RegEx: "kulcs": -> kulcs:)
+		$cols = json_encode($col_array, JSON_UNESCAPED_UNICODE);	// Kódoljuk ékezetekkel, de szóközök nélkül
+		$cols = preg_replace('/"([^"]+)":/', '$1:', $cols); 		// Eltávolítjuk az idézőjeleket a kulcsok mellől (RegEx: "kulcs": -> kulcs:)
 		$this->set('cols', $cols);
 		
 
@@ -89,8 +91,8 @@ class TasksController extends AppController
 				'value' => $tag->value,
 			];
 		}
-		$tags = json_encode($tags_array, JSON_UNESCAPED_UNICODE);	// Dekódoljuk, majd újra kódoljuk ékezetekkel, de szóközök nélkül
-		$tags = preg_replace('/"([^"]+)":/', '$1:', $tags); // Eltávolítjuk az idézőjeleket a kulcsok mellől (RegEx: "kulcs": -> kulcs:)
+		$tags = json_encode($tags_array, JSON_UNESCAPED_UNICODE);
+		$tags = preg_replace('/"([^"]+)":/', '$1:', $tags);
 		$this->set('tags', $tags);
 
 
@@ -107,43 +109,56 @@ class TasksController extends AppController
 				'color' => strtoupper($color->color),
 			];
 		}
-		$colors = json_encode($colors_array, JSON_UNESCAPED_UNICODE);	// Dekódoljuk, majd újra kódoljuk ékezetekkel, de szóközök nélkül
-		$colors = preg_replace('/"([^"]+)":/', '$1:', $colors); // Eltávolítjuk az idézőjeleket a kulcsok mellől (RegEx: "kulcs": -> kulcs:)
+		$colors = json_encode($colors_array, JSON_UNESCAPED_UNICODE);
+		$colors = preg_replace('/"([^"]+)":/', '$1:', $colors);
 		$this->set('colors', $colors);
 
 
-
         $tasks = $this->Tasks->find()	
-			//->select(['id' => 'Tasks.id', 'user_id' => 1, 'text' => 'Tasks.name', ])
-			->contain(['Colors', 'Cols', 'Tags' => ['conditions' =>['Tags.visible' => true]]])
+			->contain(['Colors', 'Cols', 'Comments', 'Tags'])
 			->where(['Tasks.deleted' => false, 'Tasks.visible' => true, 'Colors.visible' => true])
-			->orderBy(['Tasks.pos' => 'asc', 'Tasks.name' => 'asc'])
+			// Sajnos a jó sorrendet nem lehet megtartani, mert csak egy kártya pozícija mentédik. És mi van, ha van már egy olyan?
+			// Ezért a modified mező desc még hozzá. Hátha...
+			->orderBy(['Cols.pos' => 'asc', 'Tasks.position' => 'asc', 'Tasks.modified' => 'desc'])
 			;
-			
+
 		$tasks_array = [];
 		foreach($tasks as $task){
 			$tags = [];
 			foreach($task->tags as $tag){
 				$tags[] = $tag->id;
 			}
+
+			$comments = [];
+			foreach($task->comments as $comment){
+				$comments[] = [
+					'id' => $comment->id,
+					'user_id' => $comment->user_id,
+					'date' => $comment->created->format('Y-m-d H:i'),					
+					'text' => $comment->text,
+				];
+			}
+
 			$tasks_array[] = [
 				'id' => $task->id,
 				'user_id' => 1,
 				'status' => $task->col->status,
 				'color' => strtoupper($task->color->color),
 				'text' => $task->name,
-				'tags' => $tags
+				'tags' => $tags,
+				'comments' => $comments,
 			];
 		}
 		$tasks = json_encode($tasks_array, JSON_UNESCAPED_UNICODE);	// Dekódoljuk, majd újra kódoljuk ékezetekkel, de szóközök nélkül
 		$tasks = preg_replace('/"([^"]+)":/', '$1:', $tasks); // Eltávolítjuk az idézőjeleket a kulcsok mellől (RegEx: "kulcs": -> kulcs:)
 		$this->set('data', $tasks);
     }
-
+	
+	
     /**
-     * Index method
+     * Update method
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return ...
      */
     public function update()
     {
@@ -179,10 +194,10 @@ class TasksController extends AppController
 		// ############################# UPDATE #############################
 		$this->request->allowMethod(['post', 'put']);
 		$jsonData = $this->request->getData();
-
+		
+		
 		if(!isset($jsonData['id'])){
 			$task = $this->Tasks->newEmptyEntity();		// Ha új
-			//$task = $this->Tasks->patchEntity($task, $jsonData);
 		}else{
 			$task = $this->Tasks->findById((int) $jsonData['id'])->first();
 			if(null === $task){
@@ -192,31 +207,64 @@ class TasksController extends AppController
 
 		$jsonData['name'] = $jsonData['text'];
 		
-		// 2. Adatátalakítás a Many-to-Many mentéshez
-		// A CakePHP a '_ids' kulcsot várja a kapcsolótábla frissítéséhez
+		// 2. Adatátalakítás a Many-to-Many mentéshez. A CakePHP a '_ids' kulcsot várja a kapcsolótábla frissítéséhez
 		if (isset($jsonData['tags']) && is_array($jsonData['tags'])) {
 			$jsonData['tags'] = ['_ids' => $jsonData['tags']];
 		}
 		
 		unset($jsonData['user_id']);
-		unset($jsonData['webix_move_index']);
-		unset($jsonData['webix_move_parent']);
+		//unset($jsonData['webix_move_index']);
+		//unset($jsonData['webix_move_parent']);
+		//webix_move_id
 		
-		$task = $this->Tasks->patchEntity($task, $jsonData);
+		$jsonDataWithoutComments = $jsonData;
+		
+		unset($jsonDataWithoutComments['comments']);
+		$task = $this->Tasks->patchEntity($task, $jsonDataWithoutComments);
 
-		$color = $this->Colors->findById((int) $jsonData['color'])->first();
-		if(null === $color){
-			$color = $this->Colors->findByColor($jsonData['color'])->first();
+		if(isset($jsonData['color'])){
+			$color = $this->Colors->findById((int) $jsonData['color'])->first();
+			if(null === $color){
+				$color = $this->Colors->findByColor($jsonData['color'])->first();
+			}
+			$task->color_id = $color->id ?? 0;
 		}
-		$task->color_id = $color->id ?? 0;
 		
 
 		$col = $this->Cols->findByStatus($jsonData['status'])->first();
 		$task->col_id = $col->id;
 
+		// oszlopon belüli pozíció
+		if(isset($jsonData["webix_move_index"]) && null !== $jsonData["webix_move_index"]){
+			$task->position = $jsonData["webix_move_index"];
+		}
+			
+		// Save Task
+		$message = 'Sikeres mentés!';
+		$success = true;
 		if ($this->Tasks->save($task)) {
-			$message = 'Sikeres mentés!';
-			$success = true;
+			
+			// Save Comments			
+			foreach($jsonData['comments'] as $jsonComment){
+				unset($jsonComment['date']);
+				$comment = $this->Comments->find()->where(['id' => $jsonComment['id']]);
+				if($comment->count() === 0){
+					$data = [];
+					$comment 			= $this->Comments->newEmptyEntity();
+					$data['id'] 		= $jsonComment['id'];
+					$data['task_id'] 	= $task->id;
+					$data['user_id'] 	= $jsonComment['user_id'];
+					$data['text'] 		= $jsonComment['text'];
+					$comment = $this->Comments->patchEntity($comment, $data);				
+					if (!$comment->hasErrors() && $this->Comments->save($comment)) {
+						$message = 'Sikeres mentés (komment is)!';
+						$success = true;
+					}else{
+						$message = 'Hiba történt a kommentek mentése során.';
+						$success = false;
+					}
+				}
+			}
 		} else {
 			$message = 'Hiba történt a mentés során.';
 			$success = false;

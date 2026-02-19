@@ -31,6 +31,7 @@ class TasksTableTest extends TestCase
         'app.Tasks',
         'app.Cols',
         'app.Colors',
+        'app.Comments',
         'app.Tags',
     ];
 

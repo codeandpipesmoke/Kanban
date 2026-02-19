@@ -14,8 +14,6 @@ use Cake\Http\Exception\NotFoundException;
  *
  * @property int $id
  * @property int $project_id
- * @property int $view_id
- * @property int $type_id
  * @property string $name
  * @property string $status
  * @property bool $visible
@@ -25,7 +23,6 @@ use Cake\Http\Exception\NotFoundException;
  * @property \Cake\I18n\DateTime $modified
  *
  * @property \App\Model\Entity\Project $project
- * @property \App\Model\Entity\View $view
  * @property \App\Model\Entity\Type $type
  * @property \App\Model\Entity\Task[] $tasks
  */
@@ -42,8 +39,6 @@ class Col extends Entity
      */
     protected array $_accessible = [
         'project_id' => true,
-        'view_id' => true,
-        'type_id' => true,
         'name' => true,
         'status' => true,
         'visible' => true,
@@ -52,7 +47,6 @@ class Col extends Entity
         'created' => true,
         'modified' => true,
         'project' => true,
-        'view' => true,
         'type' => true,
         'tasks' => true,
     ];

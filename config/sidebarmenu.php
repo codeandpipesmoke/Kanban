@@ -15,43 +15,15 @@ return [
 						'controller'=> 'Tasks',
 						'action' 	=> 'index',
 					],
+/*
 					[
 						'type' 		=> 'menu',
 						'icon' 		=> 'fa fa-fw fa-bars',
-						'title'		=> __('Cols'),
-						'controller'=> 'Cols',
+						'title'		=> __('Comments'),
+						'controller'=> 'Comments',
 						'action' 	=> 'index',
 					],
-
-
-					[
-						'type' 		=> 'menu',
-						'icon' 		=> 'fa fa-fw fa-bars',
-						'title'		=> __('Tags'),
-						'controller'=> 'Tags',
-						'action' 	=> 'index',
-					],
-					[
-						'type' 		=> 'menu',
-						'icon' 		=> 'fa fa-fw fa-bars',
-						'title'		=> __('Colors'),
-						'controller'=> 'Colors',
-						'action' 	=> 'index',
-					],
-					[
-						'type' 		=> 'menu',
-						'icon' 		=> 'fa fa-fw fa-bars',
-						'title'		=> __('Statuses'),
-						'controller'=> 'Statuses',
-						'action' 	=> 'index',
-					],
-					[
-						'type' 		=> 'menu',
-						'icon' 		=> 'fa fa-fw fa-bars',
-						'title'		=> __('Views'),
-						'controller'=> 'Views',
-						'action' 	=> 'index',
-					],
+*/
 					[
 						'type' 		=> 'menu',
 						'icon' 		=> 'fa fa-fw fa-bars',
@@ -59,25 +31,31 @@ return [
 						'controller'=> 'Projects',
 						'action' 	=> 'index',
 					],
-/*
+
 					[
 						'type' 		=> 'submenu',
-						'title'		=> __('Tables'),
+						'title'		=> __('Project setups'),
 						'icon'		=> 'fa fa-fw fa-table',
 						'items'		=> [
 							[
-								'title' 		=> __('Posts'),
-								'controller' 	=> 'Posts',
+								'title'		=> __('Cols'),
+								'controller'=> 'Cols',
 								'action' 		=> 'index',								
 							],
 							[
-								'title' 		=> __('Categories'),
-								'controller' 	=> 'Categories',
+								'title'		=> __('Colors'),
+								'controller'=> 'Colors',
+								'action' 		=> 'index',								
+							],
+							[
+								'title'		=> __('Tags'),
+								'controller'=> 'Tags',
 								'action' 		=> 'index',								
 							],
 						]
 					],
-*/
+
+
 				],				
 			]		
 		]	

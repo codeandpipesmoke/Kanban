@@ -9,7 +9,7 @@
 		'/plugins/kanban/codebase/kanban.js?v=11.3.1',
 		//'/plugins/kanban/codebase/webix/webix',
 		//'/plugins/kanban/codebase/kanban',
-		'/plugins/kanban/samples/common/data',
+		//'/plugins/kanban/samples/common/data',
 	]);
 
 	echo $this->Html->css([

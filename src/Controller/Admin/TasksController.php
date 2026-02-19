@@ -43,7 +43,7 @@ class TasksController extends AppController
 
 		$this->set('title', __('Browse the') . ': ' . __('Tasks'));
 		
-		//$this->config['paginate_limit'] = 1000;
+		$this->config['paginate_limit'] = 100;
 		$queryParams = $this->request->getQuery();
 		$conditions 	 = [];		// Default conditions
 		$page 		 	 = '1';
@@ -126,7 +126,8 @@ class TasksController extends AppController
 		if($search !== ''){
 			$showSearchBar	 = true;
 			$query = $this->Tasks->find()
-				->contain(['Cols', 'Colors'])
+				//->leftJoinWith('Cols')
+				->contain(['Cols', 'Colors', 'Comments', 'Tags'])
 				->where([
 					//$conditions,
 					'OR' => [
@@ -136,7 +137,12 @@ class TasksController extends AppController
 					]
 				]);
 		}else{
-			$query = $this->Tasks->find()->contain(['Cols', 'Colors'])->where($conditions);
+			$query = $this->Tasks->find()
+				//->leftJoinWith('Cols')
+				->contain(['Cols', 'Colors', 'Comments', 'Tags'])->where($conditions);
+		}
+		if($sort !== null && $direction !== null){
+			$query->orderBy($sort);
 		}
 		// ############################# /.QUERY ###########################################
 

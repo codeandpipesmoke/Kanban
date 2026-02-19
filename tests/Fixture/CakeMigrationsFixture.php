@@ -10,9 +10,9 @@ use Cake\Http\Exception\NotFoundException;
 
 
 /**
- * ColorsFixture
+ * CakeMigrationsFixture
  */
-class ColorsFixture extends TestFixture
+class CakeMigrationsFixture extends TestFixture
 {
     /**
      * Init method
@@ -24,13 +24,12 @@ class ColorsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'name' => 'Lorem ipsum dolor sit amet',
-                'color' => 'Lorem ipsum dolor ',
-                'pos' => 1,
-                'visible' => 1,
-                'task_count' => 1,
-                'created' => '2026-02-18 14:56:58',
-                'modified' => '2026-02-18 14:56:58',
+                'version' => 1,
+                'migration_name' => 'Lorem ipsum dolor sit amet',
+                'plugin' => 'Lorem ipsum dolor sit amet',
+                'start_time' => 1771426361,
+                'end_time' => 1771426361,
+                'breakpoint' => 1,
             ],
         ];
         parent::init();

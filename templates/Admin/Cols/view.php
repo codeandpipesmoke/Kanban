@@ -84,18 +84,6 @@ $config = array_merge($global_config, $local_config);
 													<?= $col->hasValue('project') ? $this->Html->link($col->project->name, ['controller' => 'Projects', 'action' => 'view', $col->project->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
 												</div>
 											</div>
-											<div class="row"><!-- 1. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('View') ?>:</label>
-												<div class="col-sm-10 p-1 link">
-													<?= $col->hasValue('view') ? $this->Html->link($col->view->name, ['controller' => 'Views', 'action' => 'view', $col->view->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
-												</div>
-											</div>
-											<div class="row"><!-- 1. -->
-												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Type') ?>:</label>
-												<div class="col-sm-10 p-1 link">
-													<?= $col->hasValue('type') ? $this->Html->link($col->type->name, ['controller' => 'Types', 'action' => 'view', $col->type->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
-												</div>
-											</div>
 											<div class="row"><!-- 2. -->
 												<label class="col-sm-2 col-form-label p-1 text-start text-sm-end"><?= __('Name') ?>:</label>
 												<div class="col-sm-10 p-1">

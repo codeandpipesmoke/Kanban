@@ -10,19 +10,18 @@ use Cake\Http\Exception\NotFoundException;
 
 
 /**
- * View Entity
+ * Comment Entity
  *
  * @property int $id
- * @property string $name
- * @property bool $visible
- * @property int $pos
- * @property int|null $col_count
+ * @property int $task_id
+ * @property int $user_id
+ * @property string $text
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
- * @property \App\Model\Entity\Col[] $cols
+ * @property \App\Model\Entity\Task $task
  */
-class View extends Entity
+class Comment extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -34,12 +33,12 @@ class View extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'name' => true,
-        'visible' => true,
-        'pos' => true,
-        'col_count' => true,
+        'id' => true,
+        'task_id' => true,
+        'user_id' => true,
+        'text' => true,
         'created' => true,
         'modified' => true,
-        'cols' => true,
+        'task' => true,
     ];
 }

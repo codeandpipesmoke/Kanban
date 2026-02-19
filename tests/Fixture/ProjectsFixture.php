@@ -30,8 +30,8 @@ class ProjectsFixture extends TestFixture
                 'visible' => 1,
                 'pos' => 1,
                 'col_count' => 1,
-                'created' => '2026-02-18 14:10:08',
-                'modified' => '2026-02-18 14:10:08',
+                'created' => '2026-02-18 14:56:59',
+                'modified' => '2026-02-18 14:56:59',
             ],
         ];
         parent::init();

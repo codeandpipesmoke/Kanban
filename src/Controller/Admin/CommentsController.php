@@ -10,11 +10,11 @@ use Cake\Http\Exception\NotFoundException;
 
 
 /**
- * Cols Controller
+ * Comments Controller
  *
- * @property \App\Model\Table\ColsTable $Cols
+ * @property \App\Model\Table\CommentsTable $Comments
  */
-class ColsController extends AppController
+class CommentsController extends AppController
 {
 	//public $defaultOrder 	 = ['Pagecategories.name' => 'asc', 'Pages.pos' => 'asc'];	// For example
 	public $defaultOrder 	 = ['id' => 'asc'];
@@ -37,11 +37,11 @@ class ColsController extends AppController
      */
     public function index($clearFilter = null)
     {
-		//Configure::write('Theme.admin.config.header_buttons_in_action.index', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.index'), 
-		//	['back' => false, 'add' => true, 'edit' => false, 'save' => false, 'view' => false, 'delete' => false]
-		//));
+		Configure::write('Theme.admin.config.header_buttons_in_action.index', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.index'), 
+			['back' => false, 'add' => false, 'edit' => false, 'save' => false, 'view' => false, 'delete' => false]
+		));
 
-		$this->set('title', __('Browse the') . ': ' . __('Cols'));
+		$this->set('title', __('Browse the') . ': ' . __('Comments'));
 		
 		//$this->config['paginate_limit'] = 1000;
 		$queryParams = $this->request->getQuery();
@@ -100,12 +100,12 @@ class ColsController extends AppController
 			return $this->redirect(['controller' => $this->controller, 'action' => 'index', '?' => array_merge(['page' => 1], $queryParams) ]);
 		}
 
-		$this->paginate['Cols']['page'] 	= $page;
+		$this->paginate['Comments']['page'] 	= $page;
 		
 		if($sort !== null && $direction !== null){
-			$this->paginate['Cols']['order'] 	= [$sort => $direction];
+			$this->paginate['Comments']['order'] 	= [$sort => $direction];
 		}else{
-			$this->paginate['Cols']['order'] 	= $this->defaultOrder;
+			$this->paginate['Comments']['order'] 	= $this->defaultOrder;
 		}
 		
 		// ############################# /.SORT ORDER & PAGE ###############################
@@ -125,8 +125,8 @@ class ColsController extends AppController
 		// ############################# QUERY #############################################
 		if($search !== ''){
 			$showSearchBar	 = true;
-			$query = $this->Cols->find()
-				->contain(['Projects'])
+			$query = $this->Comments->find()
+				->contain(['Tasks'])
 				->where([
 					//$conditions,
 					'OR' => [
@@ -136,16 +136,16 @@ class ColsController extends AppController
 					]
 				]);
 		}else{
-			$query = $this->Cols->find()->contain(['Projects'])->where($conditions);
+			$query = $this->Comments->find()->contain(['Tasks'])->where($conditions);
 		}
 		// ############################# /.QUERY ###########################################
 
 
 		// ############################# PAGINATE ############################################
 		try {
-			$this->paginate['Cols']['limit'] = $this->config['paginate_limit'];
-			$this->paginate['Cols']['maxLimit'] = $this->config['paginate_limit'];
-			$cols = $this->paginate($query);
+			$this->paginate['Comments']['limit'] = $this->config['paginate_limit'];
+			$this->paginate['Comments']['maxLimit'] = $this->config['paginate_limit'];
+			$comments = $this->paginate($query);
 		} catch (NotFoundException $e) {
 			// Do something here like redirecting to first or last page.
 			// $e->getPrevious()->getAttributes('pagingParams') will give you required info.
@@ -173,37 +173,37 @@ class ColsController extends AppController
         $this->set('search', $search);
         $this->set('showSearchBar', $showSearchBar);
 
-		if(empty($cols->toArray())){
+		if(empty($comments->toArray())){
 			return $this->redirect(['action' => 'add']);
 		}
 		
-		$this->set(compact('cols'));
+		$this->set(compact('comments'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Col id.
+     * @param string|null $id Comment id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-		//Configure::write('Theme.admin.config.header_buttons_in_action.view', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.view'), 
-		//	['back' => true, 'add' => true, 'edit' => true, 'save' => false, 'view' => false, 'delete' => true]
-		//));
+		Configure::write('Theme.admin.config.header_buttons_in_action.view', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.view'), 
+			['back' => true, 'add' => false, 'edit' => true, 'save' => false, 'view' => false, 'delete' => true]
+		));
 
 		try {
-			$col = $this->Cols->get((int) $id, contain: ['Projects', 'Tasks']);
+			$comment = $this->Comments->get((int) $id, contain: ['Tasks']);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
 		}
 
-		$this->set('title', __('View the') . ': ' . __('col') . ' ' . __('record'));
+		$this->set('title', __('View the') . ': ' . __('comment') . ' ' . __('record'));
 		$this->session->write('Layout.' . $this->controller . '.LastId', $id);
-		$name = $col->name;
-		$this->set(compact('col', 'id', 'name'));
+		$name = $comment->name;
+		$this->set(compact('comment', 'id', 'name'));
     }
 
     /**
@@ -217,97 +217,97 @@ class ColsController extends AppController
 		//	['back' => true, 'add' => false, 'edit' => false, 'save' => true, 'view' => false, 'delete' => false]
 		//));
 		
-		$this->set('title', __('Add new') . ': ' . __('col') . ' ' . __('record'));
-        $col = $this->Cols->newEmptyEntity();
+		$this->set('title', __('Add new') . ': ' . __('comment') . ' ' . __('record'));
+        $comment = $this->Comments->newEmptyEntity();
         if ($this->request->is('post')) {
 			$data = $this->request->getData();
 			//debug($data);
-            $col = $this->Cols->patchEntity($col, $data);
-			//dd($col);
+            $comment = $this->Comments->patchEntity($comment, $data);
+			//dd($comment);
 			/*
 				if(...){
-					$col->setErrors('field', __('Message'));
+					$comment->setErrors('field', __('Message'));
 				}
 			*/
-			//dd($col->getErrors());
-            if (!$col->hasErrors() && $this->Cols->save($col)) {
-                //$this->Flash->success(__('The col has been saved.'), ['plugin' => 'Jeffadmin']);
+			//dd($comment->getErrors());
+            if (!$comment->hasErrors() && $this->Comments->save($comment)) {
+                //$this->Flash->success(__('The comment has been saved.'), ['plugin' => 'Jeffadmin']);
                 $this->Flash->success(__('The save has been: OK'), ['plugin' => 'Jeffadmin']);
-				$this->session->write('Layout.' . $this->controller . '.LastId', $col->id);
+				$this->session->write('Layout.' . $this->controller . '.LastId', $comment->id);
 
                 //return $this->redirect(['action' => 'add']);
                 return $this->redirect([
 					'controller' => $this->controller,
 					'action' => 'index',
-					'#' => $col->id
+					'#' => $comment->id
 				]);
 
             }
-            //$this->Flash->error(__('The col could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
+            //$this->Flash->error(__('The comment could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
             $this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $projects = $this->Cols->Projects->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
-        $this->set(compact('col', 'projects'));
+        $tasks = $this->Comments->Tasks->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+        $this->set(compact('comment', 'tasks'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Col id.
+     * @param string|null $id Comment id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-		//Configure::write('Theme.admin.config.header_buttons_in_action.edit', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.edit'), 
-		//	['back' => true, 'add' => true, 'edit' => false, 'save' => true, 'view' => true, 'delete' => true]
-		//));
+		Configure::write('Theme.admin.config.header_buttons_in_action.edit', array_merge(Configure::read('Theme.admin.config.header_buttons_in_action.edit'), 
+			['back' => true, 'add' => false, 'edit' => false, 'save' => true, 'view' => true, 'delete' => true]
+		));
 
 		try {
-			$col = $this->Cols->get((int) $id, contain: []);
+			$comment = $this->Comments->get((int) $id, contain: []);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
 		}
 
-		$this->set('title', __('Edit the') . ': ' . __('col') . ' ' . __('record'));
+		$this->set('title', __('Edit the') . ': ' . __('comment') . ' ' . __('record'));
 		$this->session->write('Layout.' . $this->controller . '.LastId', $id);
 			
 		if ($this->request->is(['patch', 'post', 'put'])) {
 			$data = $this->request->getData();
 			//debug($data);
-			$col = $this->Cols->patchEntity($col, $data);
-			//dd($col);
+			$comment = $this->Comments->patchEntity($comment, $data);
+			//dd($comment);
 			/*
 				if(...){
-					$col->setError('field', __('Message'));
+					$comment->setError('field', __('Message'));
 				}
 			*/
-			//dd($col->getErrors());
-			if (!$col->hasErrors() && $this->Cols->save($col)) {
-				//$this->Flash->success(__('The col has been saved.'), ['plugin' => 'Jeffadmin']);
+			//dd($comment->getErrors());
+			if (!$comment->hasErrors() && $this->Comments->save($comment)) {
+				//$this->Flash->success(__('The comment has been saved.'), ['plugin' => 'Jeffadmin']);
 				$this->Flash->success(__('The save has been: OK'), ['plugin' => 'Jeffadmin']);
 
 				//return $this->redirect(['action' => 'index']);
 				return $this->redirect([
 					'controller' => $this->controller,
 					'action' => 'index',
-					'#' => $col->id
+					'#' => $comment->id
 				]);
 
 			}
-			//$this->Flash->error(__('The col could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
+			//$this->Flash->error(__('The comment could not be saved. Please, try again.'), ['plugin' => 'Jeffadmin']);
 			$this->Flash->error(__('The save has been not. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
         }
-        $projects = $this->Cols->Projects->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
-		$name = $col->name;
-        $this->set(compact('col', 'projects', 'id', 'name'));
+        $tasks = $this->Comments->Tasks->find('list', conditions: ['visible' => true], limit: 200, order: ['pos' => 'asc', 'name' => 'asc'])->all();
+		$name = $comment->name;
+        $this->set(compact('comment', 'tasks', 'id', 'name'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Col id.
+     * @param string|null $id Comment id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -316,18 +316,18 @@ class ColsController extends AppController
 		$this->request->allowMethod(['post', 'delete']);
 
 		try {
-			$col = $this->Cols->get((int) $id);
+			$comment = $this->Comments->get((int) $id);
 		} catch (\Cake\Datasource\Exception\RecordNotFoundException $exeption) {
 			$this->Flash->warning(__($exeption->getMessage()), ['plugin' => 'Jeffadmin']);
 			return $this->redirect(['action' => 'index']);
 		}
 
-		if ($this->Cols->delete($col)) {
+		if ($this->Comments->delete($comment)) {
 			$this->session->delete('Layout.' . $this->controller . '.LastId');
-			//$this->Flash->success(__('The col has been deleted.'), ['plugin' => 'Jeffadmin']);
+			//$this->Flash->success(__('The comment has been deleted.'), ['plugin' => 'Jeffadmin']);
 			$this->Flash->success(__('The has been deleted.'), ['plugin' => 'Jeffadmin']);
 		} else {
-			//$this->Flash->error(__('The col could not be deleted. Please, try again.'), ['plugin' => 'Jeffadmin']);
+			//$this->Flash->error(__('The comment could not be deleted. Please, try again.'), ['plugin' => 'Jeffadmin']);
 			$this->Flash->error(__('The has been deleted. Please check the datas and try again.'), ['plugin' => 'Jeffadmin']);
 		}
 

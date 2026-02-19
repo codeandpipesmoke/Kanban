@@ -15,6 +15,7 @@ use Cake\Http\Exception\NotFoundException;
  * @property int $id
  * @property int $col_id
  * @property int $color_id
+ * @property int|null $position
  * @property string $name
  * @property string|null $description
  * @property bool $priority
@@ -22,11 +23,13 @@ use Cake\Http\Exception\NotFoundException;
  * @property bool $visible
  * @property int $pos
  * @property int|null $tag_count
+ * @property int $comment_count
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  *
  * @property \App\Model\Entity\Col $col
  * @property \App\Model\Entity\Color $color
+ * @property \App\Model\Entity\Comment[] $comments
  * @property \App\Model\Entity\Tag[] $tags
  */
 class Task extends Entity
@@ -43,6 +46,7 @@ class Task extends Entity
     protected array $_accessible = [
         'col_id' => true,
         'color_id' => true,
+        'position' => true,
         'name' => true,
         'description' => true,
         'priority' => true,
@@ -50,10 +54,12 @@ class Task extends Entity
         'visible' => true,
         'pos' => true,
         'tag_count' => true,
+        'comment_count' => true,
         'created' => true,
         'modified' => true,
         'col' => true,
         'color' => true,
+        'comments' => true,
         'tags' => true,
     ];
 }

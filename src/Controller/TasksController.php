@@ -141,7 +141,7 @@ class TasksController extends AppController
 
 			$tasks_array[] = [
 				'id' => $task->id,
-				'user_id' => 1,
+				'user_id' => $task->user_id,
 				'status' => $task->col->status,
 				'color' => strtoupper($task->color->color),
 				'text' => $task->name,
@@ -199,6 +199,12 @@ class TasksController extends AppController
 
 
 		// ############################# UPDATE #############################
+		// ############################# UPDATE #############################
+		// ############################# UPDATE #############################
+		// ############################# UPDATE #############################
+		// ############################# UPDATE #############################
+		// ############################# UPDATE #############################
+		// ############################# UPDATE #############################
 		$this->request->allowMethod(['post', 'put']);
 		$jsonData = $this->request->getData();
 		
@@ -250,12 +256,14 @@ class TasksController extends AppController
 			$task->user_id = $jsonData['user_id'];
 		}
 			
-			
 		// Save Task
 		$message = 'Sikeres mentés!';
 		$success = true;		
 		//dd($task->getErrors());		
-		if ($this->Tasks->save($task)) {			
+		if ($this->Tasks->save($task)) {
+			
+			//dd($task->toArray());
+			
 			// Save Comments			
 			foreach($jsonData['comments'] as $jsonComment){
 				unset($jsonComment['date']);

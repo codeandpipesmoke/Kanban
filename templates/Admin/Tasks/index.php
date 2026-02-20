@@ -168,7 +168,7 @@ $config = array_merge($global_config, $local_config);
 												• <span class="small fst-italic text-muted"><?= h($comment->created) ?></span><br>
 <?php } ?>
 											</td>
-											<td class="boolean priority" value="<?= $task->priority ?>"><?= h($task->priority) ?></td>
+											<td class="priority"<?= $task->priority ? ' style="background-color: #fcc;"' : '';?> value="<?= $task->priority ?>"></td>
 											<td class="boolean deleted" value="<?= $task->deleted ?>"><?= h($task->deleted) ?></td>
 <?php if($config['show_pos']){ ?>
 											<td class="number pos" value="<?= $task->pos ?>"><?= h($task->pos) ?></td>

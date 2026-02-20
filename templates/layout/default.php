@@ -20,8 +20,13 @@
 	]);
 	// #f8f8f8;
 ?>
-
 	<style>
+		.webix_kanban {
+			background-color: #E7E2D8;
+		}
+		.webix_kanban_list {
+			background-color: #E7E2D8;
+		}		
 		.toolbar{
 			background-color: #4980b5;
 			/* x-eltolás | y-eltolás | homályosítás | kiterjedés | szín */
@@ -43,9 +48,44 @@
 		.shadow{
 			box-shadow: inset 0 6px 8px #aaa;
 		}
+
+		/* Labels */
+		.webix_kanban .webix_accordionitem_header {
+			border-top: 1px solid #cccccc;
+			border-right: 1px solid #cccccc;
+			border-bottom: 1px solid #cccccc;
+			border-left: 1px solid #cccccc;
+
+			background-color: #F9F9F9;
+			font-weight: bold;
+			
+			box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.4);
+			-webkit-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.4);
+			-moz-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.4);
+		}
+
+
+		
+		/* CARD container */		
+		.webix_kanban_list_item, .webix_kanban_list_item.webix_list_item.webix_selected {
+			background-color: #E7E2D8; !important;
+			border: none;
+			margin-top: 0px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+
 		.webix_kanban_list_content {
 			border-left: 5px solid lightgray;
+			box-shadow: -1px 2px 10px 0px rgba(0, 0, 0, 0.4);
+			-webkit-box-shadow: -1px 2px 10px 0px rgba(0, 0, 0, 0.4);
+			-moz-box-shadow: -1px 2px 10px 0px rgba(0, 0, 0, 0.4);
+			border-radius: 10px;
+			margin: 5px 5px 5px 5px;
 		}
+		
+		
+		
 		.priority .webix_kanban_list_content{
 			background-color: #fff2c1;
 			border-color:  #e0d7b7;

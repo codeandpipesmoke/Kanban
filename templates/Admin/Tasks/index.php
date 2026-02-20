@@ -60,12 +60,13 @@ $config = array_merge($global_config, $local_config);
 											<th class="number id"><?= $this->Paginator->sort('id') ?></th>
 <?php } ?>
 											<?php /* <th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('Pos'), ['sort' => 'Cols.pos', 'direction' => 'asc', 'lock' => false]) */ ?></th><!-- H.0. -->
-											<th class="string col-id"><?= $this->Paginator->sort('Cols.pos', __('Pos'), ['lock' => false]) ?></th><!-- H.0. -->
-<?php /*
-['url' => ['?' => ['extra_param' => 'valami']]]
-*/ ?>
-											
-											<th class="string color-id"><?= $this->Paginator->sort('Colors.pos', __('Color'), ['lock' => false]) ?></th><!-- H.0. -->
+											<th class="string color-id" style="width: 10px;">
+												<?= $this->Paginator->sort('Colors.pos', __('C'), ['lock' => false]) ?>											
+											</th><!-- H.0. -->
+											<th class="string col-id">
+												<?= $this->Paginator->sort('Cols.pos', __('Pos'), ['lock' => false]) ?><br>
+												
+											</th><!-- H.0. -->
 											<th class="string name"><?= $this->Paginator->sort('Tasks.name', __('Title')) ?></th><!-- H.1. -->
 											<th class="boolean priority"><?= $this->Paginator->sort('Tasks.priority', __('Priority')) ?></th><!-- H.1. -->
 											<th class="boolean deleted"><?= $this->Paginator->sort('Tasks.deleted', __('Deleted')) ?></th><!-- H.1. -->
@@ -111,13 +112,11 @@ $config = array_merge($global_config, $local_config);
 <?php if($config['show_id']){ ?>
 											<td class="number id" value="<?= $task->id ?>"><?= h($task->id) ?><a name="<?= $task->id ?>"></a></td>
 <?php } ?>
-											<td class="string link col-id" value="<?= $task->col_id ?>">
-												<?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
-												<?php //= $task->col->pos ?>
-											
+											<td class="string link color-id" style="background-color: <?= $task->color->color ?>" value="<?= $task->col_id ?>">
+												<?php /* $task->hasValue('color') ? $this->Html->link('<div style="background-color: ' . $task->color->color . '; width: 24px; height: 24px; margin-right: 5px; float: left;"></div>' . $task->color->name, ['controller' => 'Colors', 'action' => 'view', $task->color->id], ['escape' => false]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span> */ ?>
 											</td>
-											<td class="string link color-id" value="<?= $task->color_id ?>">
-												<?= $task->hasValue('color') ? $this->Html->link('<div style="background-color: ' . $task->color->color . '; width: 24px; height: 24px; margin-right: 5px; float: left;"></div>' . $task->color->name, ['controller' => 'Colors', 'action' => 'view', $task->color->id], ['escape' => false]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+											<td class="string link col-id" value="<?= $task->col_id ?>">
+												<?= $task->hasValue('col') ? $this->Html->link($task->col->name, ['controller' => 'Cols', 'action' => 'view', $task->col->id]) : '' ?><span class="external-link-icon"><i class="fa fa-external-link" aria-hidden="true"></i></span><br>
 											</td>
 											<td class="string name" value="<?= $task->name ?>">
 												<b><?= h($task->name) ?></b>

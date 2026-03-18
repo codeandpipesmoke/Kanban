@@ -52,7 +52,7 @@ $config = array_merge($global_config, $local_config);
 
 							<div class="card-body p-0 p-1">
 								
-								<table class="table table-responsive-xl table-hover table-striped mb-0 text-nowrap" style="">
+								<table class="table table-responsive-xl table-hover table-striped mb-0 text-wrap" style="">
 									<thead class="thead-info">
 										<tr>
 											<th class="row-id-anchor"></th>
